@@ -1,0 +1,158 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import Cozmoai from 'cozmoai';
+
+const client = new Cozmoai({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
+
+describe('resource calls', () => {
+  // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.org.calls.list('org_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.org.calls.list(
+        'org_id',
+        {
+          agent_id: 'agent_id',
+          direction: 'direction',
+          end_date: 'end_date',
+          min_duration: 0,
+          page: 0,
+          phone: 'phone',
+          prospect_external_id: 'prospect_external_id',
+          prospect_id: 'prospect_id',
+          size: 100,
+          start_date: 'start_date',
+          status: 'status',
+          workflow_id: 'workflow_id',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Cozmoai.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('createDashboardCall: only required params', async () => {
+    const responsePromise = client.org.calls.createDashboardCall('org_id', {
+      agent_id: 'agent_id',
+      from_number: 'from_number',
+      phone_number: 'phone_number',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('createDashboardCall: required and optional params', async () => {
+    const response = await client.org.calls.createDashboardCall('org_id', {
+      agent_id: 'agent_id',
+      from_number: 'from_number',
+      phone_number: 'phone_number',
+      extras: { foo: 'string' },
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('getDetails: only required params', async () => {
+    const responsePromise = client.org.calls.getDetails('call_id', { org_id: 'org_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getDetails: required and optional params', async () => {
+    const response = await client.org.calls.getDetails('call_id', { org_id: 'org_id' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('getEvaluations: only required params', async () => {
+    const responsePromise = client.org.calls.getEvaluations('call_id', { org_id: 'org_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getEvaluations: required and optional params', async () => {
+    const response = await client.org.calls.getEvaluations('call_id', { org_id: 'org_id' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('getRecording: only required params', async () => {
+    const responsePromise = client.org.calls.getRecording('call_id', { org_id: 'org_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getRecording: required and optional params', async () => {
+    const response = await client.org.calls.getRecording('call_id', { org_id: 'org_id' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('getToolLogs: only required params', async () => {
+    const responsePromise = client.org.calls.getToolLogs('call_id', { org_id: 'org_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getToolLogs: required and optional params', async () => {
+    const response = await client.org.calls.getToolLogs('call_id', { org_id: 'org_id' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('getTranscript: only required params', async () => {
+    const responsePromise = client.org.calls.getTranscript('call_id', { org_id: 'org_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getTranscript: required and optional params', async () => {
+    const response = await client.org.calls.getTranscript('call_id', { org_id: 'org_id' });
+  });
+});
