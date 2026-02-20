@@ -10,7 +10,6 @@ export {
   type ListUpdateParams,
   type ListListParams,
   type ListDeleteParams,
-  type ListDeleteGdprParams,
 } from './lists';
 export {
   Prospects,

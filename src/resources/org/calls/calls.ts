@@ -2,13 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as ExportAPI from './export';
-import {
-  Export,
-  ExportGetCountParams,
-  ExportGetCountResponse,
-  ExportGetCsvParams,
-  ExportGetCsvResponse,
-} from './export';
+import { Export } from './export';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -28,17 +22,6 @@ export class Calls extends APIResource {
   }
 
   /**
-   * Creates a call directly from the dashboard, finding or creating a prospect
-   */
-  createDashboardCall(
-    orgID: string,
-    body: CallCreateDashboardCallParams,
-    options?: RequestOptions,
-  ): APIPromise<CallCreateDashboardCallResponse> {
-    return this._client.post(path`/org/${orgID}/calls`, { body, ...options });
-  }
-
-  /**
    * Returns full details for a specific call including prospect and agent info
    */
   getDetails(
@@ -51,18 +34,6 @@ export class Calls extends APIResource {
   }
 
   /**
-   * Returns the AI evaluation results for a call
-   */
-  getEvaluations(
-    callID: string,
-    params: CallGetEvaluationsParams,
-    options?: RequestOptions,
-  ): APIPromise<CallGetEvaluationsResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/calls/${callID}/evaluations`, options);
-  }
-
-  /**
    * Returns the recording URL for a call
    */
   getRecording(
@@ -72,18 +43,6 @@ export class Calls extends APIResource {
   ): APIPromise<CallGetRecordingResponse> {
     const { org_id } = params;
     return this._client.get(path`/org/${org_id}/calls/${callID}/recording`, options);
-  }
-
-  /**
-   * Returns the tool invocation logs for a call
-   */
-  getToolLogs(
-    callID: string,
-    params: CallGetToolLogsParams,
-    options?: RequestOptions,
-  ): APIPromise<CallGetToolLogsResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/calls/${callID}/tool-logs`, options);
   }
 
   /**
@@ -183,20 +142,6 @@ export namespace CallListResponse {
   }
 }
 
-export interface CallCreateDashboardCallResponse {
-  call_id?: string;
-
-  created_at?: string;
-
-  from_number?: string;
-
-  prospect_id?: string;
-
-  status?: string;
-
-  to_number?: string;
-}
-
 export interface CallGetDetailsResponse {
   id?: string;
 
@@ -279,8 +224,6 @@ export interface CallGetDetailsResponse {
   workflow_version_id?: string;
 }
 
-export type CallGetEvaluationsResponse = Array<CallEvaluation>;
-
 export interface CallGetRecordingResponse {
   id?: string;
 
@@ -288,8 +231,6 @@ export interface CallGetRecordingResponse {
 
   recording_url?: string;
 }
-
-export type CallGetToolLogsResponse = Array<CallToolLog>;
 
 export interface CallGetTranscriptResponse {
   id?: string;
@@ -380,19 +321,6 @@ export interface CallListParams {
   workflow_id?: string;
 }
 
-export interface CallCreateDashboardCallParams {
-  agent_id: string;
-
-  from_number: string;
-
-  phone_number: string;
-
-  /**
-   * first_name, last_name, email, etc.
-   */
-  extras?: { [key: string]: string };
-}
-
 export interface CallGetDetailsParams {
   /**
    * Organization ID
@@ -400,21 +328,7 @@ export interface CallGetDetailsParams {
   org_id: string;
 }
 
-export interface CallGetEvaluationsParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export interface CallGetRecordingParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
-export interface CallGetToolLogsParams {
   /**
    * Organization ID
    */
@@ -436,26 +350,14 @@ export declare namespace Calls {
     type CallToolLog as CallToolLog,
     type PaginationMetaCalls as PaginationMetaCalls,
     type CallListResponse as CallListResponse,
-    type CallCreateDashboardCallResponse as CallCreateDashboardCallResponse,
     type CallGetDetailsResponse as CallGetDetailsResponse,
-    type CallGetEvaluationsResponse as CallGetEvaluationsResponse,
     type CallGetRecordingResponse as CallGetRecordingResponse,
-    type CallGetToolLogsResponse as CallGetToolLogsResponse,
     type CallGetTranscriptResponse as CallGetTranscriptResponse,
     type CallListParams as CallListParams,
-    type CallCreateDashboardCallParams as CallCreateDashboardCallParams,
     type CallGetDetailsParams as CallGetDetailsParams,
-    type CallGetEvaluationsParams as CallGetEvaluationsParams,
     type CallGetRecordingParams as CallGetRecordingParams,
-    type CallGetToolLogsParams as CallGetToolLogsParams,
     type CallGetTranscriptParams as CallGetTranscriptParams,
   };
 
-  export {
-    Export as Export,
-    type ExportGetCountResponse as ExportGetCountResponse,
-    type ExportGetCsvResponse as ExportGetCsvResponse,
-    type ExportGetCountParams as ExportGetCountParams,
-    type ExportGetCsvParams as ExportGetCsvParams,
-  };
+  export { Export as Export };
 }

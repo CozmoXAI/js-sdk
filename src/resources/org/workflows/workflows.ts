@@ -5,13 +5,7 @@ import * as RunsAPI from '../runs';
 import * as BatchesAPI from './batches';
 import { BatchCreateParams, BatchListParams, BatchListResponse, Batches } from './batches';
 import * as VersionsAPI from './versions';
-import {
-  VersionListParams,
-  VersionListResponse,
-  VersionRetrieveParams,
-  VersionRetrieveResponse,
-  Versions,
-} from './versions';
+import { Versions } from './versions';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -41,18 +35,6 @@ export class Workflows extends APIResource {
   }
 
   /**
-   * Restore a previous version by creating a new version with the old definition
-   */
-  update(
-    version: number,
-    params: WorkflowUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowResponse> {
-    const { org_id, workflow_id } = params;
-    return this._client.post(path`/org/${org_id}/workflows/${workflow_id}/restore/${version}`, options);
-  }
-
-  /**
    * Get a paginated list of workflows with filtering
    */
   list(
@@ -73,30 +55,6 @@ export class Workflows extends APIResource {
   ): APIPromise<WorkflowDeleteResponse> {
     const { org_id } = params;
     return this._client.delete(path`/org/${org_id}/workflows/${workflowID}`, options);
-  }
-
-  /**
-   * Create a copy of a workflow with " (Copy)" suffix
-   */
-  duplicate(
-    workflowID: string,
-    params: WorkflowDuplicateParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowResponse> {
-    const { org_id } = params;
-    return this._client.post(path`/org/${org_id}/workflows/${workflowID}/duplicate`, options);
-  }
-
-  /**
-   * Returns all calls associated with a specific workflow node across all prospects
-   */
-  retrieveCalls(
-    nodeID: string,
-    params: WorkflowRetrieveCallsParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowRetrieveCallsResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/workflow/${nodeID}/calls`, options);
   }
 
   /**
@@ -186,27 +144,6 @@ export namespace WorkflowListResponse {
 
 export type WorkflowDeleteResponse = { [key: string]: string };
 
-export type WorkflowRetrieveCallsResponse =
-  Array<WorkflowRetrieveCallsResponse.WorkflowRetrieveCallsResponseItem>;
-
-export namespace WorkflowRetrieveCallsResponse {
-  export interface WorkflowRetrieveCallsResponseItem {
-    id?: string;
-
-    duration_seconds?: number;
-
-    ended_at?: string;
-
-    prospect_id?: string;
-
-    started_at?: string;
-
-    status?: string;
-
-    workflow_run_id?: string;
-  }
-}
-
 export interface WorkflowCreateParams {
   definition: Array<number>;
 
@@ -224,18 +161,6 @@ export interface WorkflowRetrieveParams {
    * Organization ID
    */
   org_id: string;
-}
-
-export interface WorkflowUpdateParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-
-  /**
-   * Workflow ID
-   */
-  workflow_id: string;
 }
 
 export interface WorkflowListParams {
@@ -266,20 +191,6 @@ export interface WorkflowListParams {
 }
 
 export interface WorkflowDeleteParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
-export interface WorkflowDuplicateParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
-export interface WorkflowRetrieveCallsParams {
   /**
    * Organization ID
    */
@@ -360,14 +271,10 @@ export declare namespace Workflows {
     type WorkflowResponse as WorkflowResponse,
     type WorkflowListResponse as WorkflowListResponse,
     type WorkflowDeleteResponse as WorkflowDeleteResponse,
-    type WorkflowRetrieveCallsResponse as WorkflowRetrieveCallsResponse,
     type WorkflowCreateParams as WorkflowCreateParams,
     type WorkflowRetrieveParams as WorkflowRetrieveParams,
-    type WorkflowUpdateParams as WorkflowUpdateParams,
     type WorkflowListParams as WorkflowListParams,
     type WorkflowDeleteParams as WorkflowDeleteParams,
-    type WorkflowDuplicateParams as WorkflowDuplicateParams,
-    type WorkflowRetrieveCallsParams as WorkflowRetrieveCallsParams,
     type WorkflowRetrieveRunsParams as WorkflowRetrieveRunsParams,
     type WorkflowUpdateDefinitionParams as WorkflowUpdateDefinitionParams,
   };
@@ -379,11 +286,5 @@ export declare namespace Workflows {
     type BatchListParams as BatchListParams,
   };
 
-  export {
-    Versions as Versions,
-    type VersionRetrieveResponse as VersionRetrieveResponse,
-    type VersionListResponse as VersionListResponse,
-    type VersionRetrieveParams as VersionRetrieveParams,
-    type VersionListParams as VersionListParams,
-  };
+  export { Versions as Versions };
 }

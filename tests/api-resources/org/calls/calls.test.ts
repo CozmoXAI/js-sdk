@@ -46,32 +46,6 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('createDashboardCall: only required params', async () => {
-    const responsePromise = client.org.calls.createDashboardCall('org_id', {
-      agent_id: 'agent_id',
-      from_number: 'from_number',
-      phone_number: 'phone_number',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createDashboardCall: required and optional params', async () => {
-    const response = await client.org.calls.createDashboardCall('org_id', {
-      agent_id: 'agent_id',
-      from_number: 'from_number',
-      phone_number: 'phone_number',
-      extras: { foo: 'string' },
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('getDetails: only required params', async () => {
     const responsePromise = client.org.calls.getDetails('call_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -89,23 +63,6 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('getEvaluations: only required params', async () => {
-    const responsePromise = client.org.calls.getEvaluations('call_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('getEvaluations: required and optional params', async () => {
-    const response = await client.org.calls.getEvaluations('call_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
   test.skip('getRecording: only required params', async () => {
     const responsePromise = client.org.calls.getRecording('call_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -120,23 +77,6 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('getRecording: required and optional params', async () => {
     const response = await client.org.calls.getRecording('call_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('getToolLogs: only required params', async () => {
-    const responsePromise = client.org.calls.getToolLogs('call_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('getToolLogs: required and optional params', async () => {
-    const response = await client.org.calls.getToolLogs('call_id', { org_id: 'org_id' });
   });
 
   // Mock server tests are disabled

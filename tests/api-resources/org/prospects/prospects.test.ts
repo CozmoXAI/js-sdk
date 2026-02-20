@@ -132,23 +132,6 @@ describe('resource prospects', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('hardDelete: only required params', async () => {
-    const responsePromise = client.org.prospects.hardDelete('prospect_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('hardDelete: required and optional params', async () => {
-    const response = await client.org.prospects.hardDelete('prospect_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
   test.skip('listCalls: only required params', async () => {
     const responsePromise = client.org.prospects.listCalls('prospect_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();

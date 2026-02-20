@@ -10,34 +10,14 @@ export {
   type RunTests,
   type AgentListResponse,
   type AgentDeleteResponse,
-  type AgentListEvalRunsResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
-  type AgentListEvalRunsParams,
-  type AgentRunSpecificTestsParams,
-  type AgentRunTestsParams,
 } from './agents';
-export {
-  Evals,
-  type Eval,
-  type EvalListResponse,
-  type EvalCreateParams,
-  type EvalUpdateParams,
-  type EvalListParams,
-  type EvalDeleteParams,
-} from './evals';
-export {
-  SipTrunks,
-  type SipTrunkListResponse,
-  type SipTrunkAddResponse,
-  type SipTrunkRemoveResponse,
-  type SipTrunkListParams,
-  type SipTrunkAddParams,
-  type SipTrunkRemoveParams,
-} from './sip-trunks';
+export { Evals, type Eval } from './evals';
+export { SipTrunks } from './sip-trunks';
 export {
   Tools,
   type AgentTool,
@@ -50,21 +30,5 @@ export {
   type ToolAddParams,
   type ToolRemoveParams,
 } from './tools';
-export {
-  UnitTestRuns,
-  type PaginationMetaUnitTests,
-  type UnitTestRunLatestResponse,
-  type UnitTestRunLatestParams,
-} from './unit-test-runs';
-export {
-  UnitTests,
-  type UnitTest,
-  type UnitTestListResponse,
-  type UnitTestDeleteResponse,
-  type UnitTestGenerateResponse,
-  type UnitTestCreateParams,
-  type UnitTestUpdateParams,
-  type UnitTestListParams,
-  type UnitTestDeleteParams,
-  type UnitTestGenerateParams,
-} from './unit-tests';
+export { UnitTestRuns, type PaginationMetaUnitTests } from './unit-test-runs';
+export { UnitTests, type UnitTest } from './unit-tests';

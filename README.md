@@ -25,9 +25,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Cozmoai from 'cozmoai';
 
-const client = new Cozmoai({
-  apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
-});
+const client = new Cozmoai();
 
 const response = await client.me.listOrganizations();
 ```
@@ -40,9 +38,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Cozmoai from 'cozmoai';
 
-const client = new Cozmoai({
-  apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
-});
+const client = new Cozmoai();
 
 const response: Cozmoai.MeListOrganizationsResponse = await client.me.listOrganizations();
 ```
@@ -137,6 +133,7 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new Cozmoai({
+  apiKey: 'My API Key',
   maxRetries: 0, // default is 2
 });
 
@@ -154,6 +151,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new Cozmoai({
+  apiKey: 'My API Key',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 

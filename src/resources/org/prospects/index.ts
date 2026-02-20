@@ -20,7 +20,6 @@ export {
   type ProspectUpdateParams,
   type ProspectListParams,
   type ProspectDeleteParams,
-  type ProspectHardDeleteParams,
   type ProspectListCallsParams,
 } from './prospects';
 export { Tags, type TagAddParams, type TagRemoveParams, type TagRemoveAllParams } from './tags';

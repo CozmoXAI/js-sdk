@@ -78,18 +78,6 @@ export class Prospects extends APIResource {
   }
 
   /**
-   * Permanently delete a prospect for GDPR compliance
-   */
-  hardDelete(
-    prospectID: string,
-    params: ProspectHardDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<ResponseError> {
-    const { org_id } = params;
-    return this._client.delete(path`/org/${org_id}/prospects/${prospectID}/gdpr`, options);
-  }
-
-  /**
    * Returns a paginated list of calls for a specific prospect
    */
   listCalls(
@@ -355,13 +343,6 @@ export interface ProspectDeleteParams {
   org_id: string;
 }
 
-export interface ProspectHardDeleteParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export interface ProspectListCallsParams {
   /**
    * Path param: Organization ID
@@ -394,7 +375,6 @@ export declare namespace Prospects {
     type ProspectUpdateParams as ProspectUpdateParams,
     type ProspectListParams as ProspectListParams,
     type ProspectDeleteParams as ProspectDeleteParams,
-    type ProspectHardDeleteParams as ProspectHardDeleteParams,
     type ProspectListCallsParams as ProspectListCallsParams,
   };
 

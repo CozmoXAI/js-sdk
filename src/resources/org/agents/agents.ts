@@ -2,25 +2,9 @@
 
 import { APIResource } from '../../../core/resource';
 import * as EvalsAPI from './evals';
-import {
-  Eval,
-  EvalCreateParams,
-  EvalDeleteParams,
-  EvalListParams,
-  EvalListResponse,
-  EvalUpdateParams,
-  Evals,
-} from './evals';
+import { Eval, Evals } from './evals';
 import * as SipTrunksAPI from './sip-trunks';
-import {
-  SipTrunkAddParams,
-  SipTrunkAddResponse,
-  SipTrunkListParams,
-  SipTrunkListResponse,
-  SipTrunkRemoveParams,
-  SipTrunkRemoveResponse,
-  SipTrunks,
-} from './sip-trunks';
+import { SipTrunks } from './sip-trunks';
 import * as ToolsAPI from './tools';
 import {
   AgentTool,
@@ -35,25 +19,9 @@ import {
   Tools,
 } from './tools';
 import * as UnitTestRunsAPI from './unit-test-runs';
-import {
-  PaginationMetaUnitTests,
-  UnitTestRunLatestParams,
-  UnitTestRunLatestResponse,
-  UnitTestRuns,
-} from './unit-test-runs';
+import { PaginationMetaUnitTests, UnitTestRuns } from './unit-test-runs';
 import * as UnitTestsAPI from './unit-tests';
-import {
-  UnitTest,
-  UnitTestCreateParams,
-  UnitTestDeleteParams,
-  UnitTestDeleteResponse,
-  UnitTestGenerateParams,
-  UnitTestGenerateResponse,
-  UnitTestListParams,
-  UnitTestListResponse,
-  UnitTestUpdateParams,
-  UnitTests,
-} from './unit-tests';
+import { UnitTest, UnitTests } from './unit-tests';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -109,37 +77,6 @@ export class Agents extends APIResource {
   ): APIPromise<AgentDeleteResponse> {
     const { org_id } = params;
     return this._client.delete(path`/org/${org_id}/agents/${agentID}`, options);
-  }
-
-  /**
-   * Get evaluation runs with pagination
-   */
-  listEvalRuns(
-    orgID: string,
-    query: AgentListEvalRunsParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentListEvalRunsResponse> {
-    return this._client.get(path`/org/${orgID}/agents/eval-runs`, { query, ...options });
-  }
-
-  /**
-   * Trigger execution of specific unit tests
-   */
-  runSpecificTests(
-    agentID: string,
-    params: AgentRunSpecificTestsParams,
-    options?: RequestOptions,
-  ): APIPromise<RunTests> {
-    const { org_id, ...body } = params;
-    return this._client.post(path`/org/${org_id}/agents/${agentID}/run-specific-tests`, { body, ...options });
-  }
-
-  /**
-   * Trigger execution of all unit tests for an agent
-   */
-  runTests(agentID: string, params: AgentRunTestsParams, options?: RequestOptions): APIPromise<RunTests> {
-    const { org_id } = params;
-    return this._client.post(path`/org/${org_id}/agents/${agentID}/run-tests`, options);
   }
 }
 
@@ -252,34 +189,6 @@ export namespace AgentListResponse {
 }
 
 export type AgentDeleteResponse = { [key: string]: string };
-
-export interface AgentListEvalRunsResponse {
-  data?: Array<AgentListEvalRunsResponse.Data>;
-
-  meta?: PaginationMetaEvalsPostcall;
-}
-
-export namespace AgentListEvalRunsResponse {
-  export interface Data {
-    id?: number;
-
-    agent_id?: string;
-
-    call_id?: string;
-
-    created_at?: string;
-
-    eval_id?: number;
-
-    eval_title?: string;
-
-    has_passed?: boolean;
-
-    org_id?: string;
-
-    reasoning?: string;
-  }
-}
 
 export interface AgentCreateParams {
   name: string;
@@ -417,42 +326,6 @@ export interface AgentDeleteParams {
   org_id: string;
 }
 
-export interface AgentListEvalRunsParams {
-  /**
-   * Agent ID
-   */
-  agentId: string;
-
-  /**
-   * Page number
-   */
-  page?: number;
-
-  /**
-   * Page size
-   */
-  size?: number;
-}
-
-export interface AgentRunSpecificTestsParams {
-  /**
-   * Path param: Organization ID
-   */
-  org_id: string;
-
-  /**
-   * Body param
-   */
-  unit_test_ids: Array<string>;
-}
-
-export interface AgentRunTestsParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 Agents.SipTrunks = SipTrunks;
 Agents.Tools = Tools;
 Agents.UnitTestRuns = UnitTestRuns;
@@ -469,26 +342,14 @@ export declare namespace Agents {
     type RunTests as RunTests,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentListEvalRunsResponse as AgentListEvalRunsResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
-    type AgentListEvalRunsParams as AgentListEvalRunsParams,
-    type AgentRunSpecificTestsParams as AgentRunSpecificTestsParams,
-    type AgentRunTestsParams as AgentRunTestsParams,
   };
 
-  export {
-    SipTrunks as SipTrunks,
-    type SipTrunkListResponse as SipTrunkListResponse,
-    type SipTrunkAddResponse as SipTrunkAddResponse,
-    type SipTrunkRemoveResponse as SipTrunkRemoveResponse,
-    type SipTrunkListParams as SipTrunkListParams,
-    type SipTrunkAddParams as SipTrunkAddParams,
-    type SipTrunkRemoveParams as SipTrunkRemoveParams,
-  };
+  export { SipTrunks as SipTrunks };
 
   export {
     Tools as Tools,
@@ -503,33 +364,9 @@ export declare namespace Agents {
     type ToolRemoveParams as ToolRemoveParams,
   };
 
-  export {
-    UnitTestRuns as UnitTestRuns,
-    type PaginationMetaUnitTests as PaginationMetaUnitTests,
-    type UnitTestRunLatestResponse as UnitTestRunLatestResponse,
-    type UnitTestRunLatestParams as UnitTestRunLatestParams,
-  };
+  export { UnitTestRuns as UnitTestRuns, type PaginationMetaUnitTests as PaginationMetaUnitTests };
 
-  export {
-    UnitTests as UnitTests,
-    type UnitTest as UnitTest,
-    type UnitTestListResponse as UnitTestListResponse,
-    type UnitTestDeleteResponse as UnitTestDeleteResponse,
-    type UnitTestGenerateResponse as UnitTestGenerateResponse,
-    type UnitTestCreateParams as UnitTestCreateParams,
-    type UnitTestUpdateParams as UnitTestUpdateParams,
-    type UnitTestListParams as UnitTestListParams,
-    type UnitTestDeleteParams as UnitTestDeleteParams,
-    type UnitTestGenerateParams as UnitTestGenerateParams,
-  };
+  export { UnitTests as UnitTests, type UnitTest as UnitTest };
 
-  export {
-    Evals as Evals,
-    type Eval as Eval,
-    type EvalListResponse as EvalListResponse,
-    type EvalCreateParams as EvalCreateParams,
-    type EvalUpdateParams as EvalUpdateParams,
-    type EvalListParams as EvalListParams,
-    type EvalDeleteParams as EvalDeleteParams,
-  };
+  export { Evals as Evals, type Eval as Eval };
 }

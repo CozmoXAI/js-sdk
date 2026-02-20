@@ -60,18 +60,6 @@ export class Lists extends APIResource {
     const { org_id } = params;
     return this._client.delete(path`/org/${org_id}/lists/${listID}`, options);
   }
-
-  /**
-   * Permanently delete a prospect list and all its prospects for GDPR compliance
-   */
-  deleteGdpr(
-    listID: string,
-    params: ListDeleteGdprParams,
-    options?: RequestOptions,
-  ): APIPromise<DeleteListResponse> {
-    const { org_id } = params;
-    return this._client.delete(path`/org/${org_id}/lists/${listID}/gdpr`, options);
-  }
 }
 
 export interface DeleteListResponse {
@@ -173,13 +161,6 @@ export interface ListDeleteParams {
   org_id: string;
 }
 
-export interface ListDeleteGdprParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 Lists.Prospects = Prospects;
 
 export declare namespace Lists {
@@ -192,7 +173,6 @@ export declare namespace Lists {
     type ListUpdateParams as ListUpdateParams,
     type ListListParams as ListListParams,
     type ListDeleteParams as ListDeleteParams,
-    type ListDeleteGdprParams as ListDeleteGdprParams,
   };
 
   export {

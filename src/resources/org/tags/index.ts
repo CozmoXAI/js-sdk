@@ -6,14 +6,4 @@ export {
   type ProspectCreateParams,
   type ProspectDeleteAllParams,
 } from './prospects';
-export {
-  Tags,
-  type TagResponseTag,
-  type TagListResponse,
-  type TagDeleteResponse,
-  type TagCreateParams,
-  type TagRetrieveParams,
-  type TagUpdateParams,
-  type TagListParams,
-  type TagDeleteParams,
-} from './tags';
+export { Tags, type TagResponseTag } from './tags';

@@ -118,27 +118,4 @@ describe('resource phoneNumbers', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.org.phoneNumbers.delete('number_id', { org_id: 'org_id' });
   });
-
-  // Mock server tests are disabled
-  test.skip('createBulk: only required params', async () => {
-    const responsePromise = client.org.phoneNumbers.createBulk('org_id', {
-      numbers: [{ number: 'number' }],
-      sip_trunk_id: 'sip_trunk_id',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createBulk: required and optional params', async () => {
-    const response = await client.org.phoneNumbers.createBulk('org_id', {
-      numbers: [{ number: 'number', label: 'label' }],
-      sip_trunk_id: 'sip_trunk_id',
-    });
-  });
 });

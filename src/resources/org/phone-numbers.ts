@@ -63,17 +63,6 @@ export class PhoneNumbers extends APIResource {
     const { org_id } = params;
     return this._client.delete(path`/org/${org_id}/phone-numbers/${numberID}`, options);
   }
-
-  /**
-   * Creates multiple phone numbers and associates them with a SIP trunk
-   */
-  createBulk(
-    orgID: string,
-    body: PhoneNumberCreateBulkParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberCreateBulkResponse> {
-    return this._client.post(path`/org/${orgID}/phone-numbers/bulk`, { body, ...options });
-  }
 }
 
 export interface PaginationMetaTelephony {
@@ -109,12 +98,6 @@ export interface PhoneNumberListResponse {
 }
 
 export type PhoneNumberDeleteResponse = { [key: string]: string };
-
-export interface PhoneNumberCreateBulkResponse {
-  count?: number;
-
-  created?: Array<PhoneNumberResponse>;
-}
 
 export interface PhoneNumberCreateParams {
   number: string;
@@ -192,32 +175,16 @@ export interface PhoneNumberDeleteParams {
   org_id: string;
 }
 
-export interface PhoneNumberCreateBulkParams {
-  numbers: Array<PhoneNumberCreateBulkParams.Number>;
-
-  sip_trunk_id: string;
-}
-
-export namespace PhoneNumberCreateBulkParams {
-  export interface Number {
-    number: string;
-
-    label?: string;
-  }
-}
-
 export declare namespace PhoneNumbers {
   export {
     type PaginationMetaTelephony as PaginationMetaTelephony,
     type PhoneNumberResponse as PhoneNumberResponse,
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
-    type PhoneNumberCreateBulkResponse as PhoneNumberCreateBulkResponse,
     type PhoneNumberCreateParams as PhoneNumberCreateParams,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberDeleteParams as PhoneNumberDeleteParams,
-    type PhoneNumberCreateBulkParams as PhoneNumberCreateBulkParams,
   };
 }

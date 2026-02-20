@@ -53,23 +53,6 @@ describe('resource workflows', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.org.workflows.update(0, { org_id: 'org_id', workflow_id: 'workflow_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.org.workflows.update(0, { org_id: 'org_id', workflow_id: 'workflow_id' });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.org.workflows.list('org_id');
     const rawResponse = await responsePromise.asResponse();
@@ -114,40 +97,6 @@ describe('resource workflows', () => {
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.org.workflows.delete('workflow_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('duplicate: only required params', async () => {
-    const responsePromise = client.org.workflows.duplicate('workflow_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('duplicate: required and optional params', async () => {
-    const response = await client.org.workflows.duplicate('workflow_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveCalls: only required params', async () => {
-    const responsePromise = client.org.workflows.retrieveCalls('node_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveCalls: required and optional params', async () => {
-    const response = await client.org.workflows.retrieveCalls('node_id', { org_id: 'org_id' });
   });
 
   // Mock server tests are disabled

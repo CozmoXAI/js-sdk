@@ -1,14 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  APIKeys,
-  type Response,
-  type APIKeyCreateAPIKeyResponse,
-  type APIKeyListAPIKeysResponse,
-  type APIKeyCreateAPIKeyParams,
-  type APIKeyRevokeAPIKeyParams,
-  type APIKeyUpdateAPIKeyScopesParams,
-} from './api-keys';
+export { APIKeys, type Response } from './api-keys';
 export {
   Agents,
   type Agent,
@@ -19,100 +11,33 @@ export {
   type RunTests,
   type AgentListResponse,
   type AgentDeleteResponse,
-  type AgentListEvalRunsResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
-  type AgentListEvalRunsParams,
-  type AgentRunSpecificTestsParams,
-  type AgentRunTestsParams,
 } from './agents/index';
-export {
-  Analytics,
-  type AnalyticsPeriod,
-  type AnalyticsGetDashboardSummaryResponse,
-  type AnalyticsGetProspectAnalyticsResponse,
-  type AnalyticsListAgentsResponse,
-  type AnalyticsListBatchesResponse,
-  type AnalyticsGetDashboardSummaryParams,
-  type AnalyticsGetProspectAnalyticsParams,
-  type AnalyticsListAgentsParams,
-  type AnalyticsListBatchesParams,
-} from './analytics/index';
-export {
-  Batches,
-  type BatchResponse,
-  type PaginationMetaWorkflowBatches,
-  type BatchListWorkflowRunsResponse,
-  type BatchGetWorkflowBatchParams,
-  type BatchListWorkflowRunsParams,
-  type BatchUpdateBatchStatusParams,
-} from './batches';
-export {
-  Billing,
-  type Numeric,
-  type BillingGetBalanceResponse,
-  type BillingGetSummaryResponse,
-  type BillingGetUsageSummaryResponse,
-  type BillingInitiateTopupResponse,
-  type BillingGetUsageSummaryParams,
-  type BillingInitiateTopupParams,
-} from './billing/index';
+export { Analytics, type AnalyticsPeriod } from './analytics/index';
+export { Batches, type BatchResponse, type PaginationMetaWorkflowBatches } from './batches';
+export { Billing, type Numeric } from './billing/index';
 export {
   Calls,
   type CallEvaluation,
   type CallToolLog,
   type PaginationMetaCalls,
   type CallListResponse,
-  type CallCreateDashboardCallResponse,
   type CallGetDetailsResponse,
-  type CallGetEvaluationsResponse,
   type CallGetRecordingResponse,
-  type CallGetToolLogsResponse,
   type CallGetTranscriptResponse,
   type CallListParams,
-  type CallCreateDashboardCallParams,
   type CallGetDetailsParams,
-  type CallGetEvaluationsParams,
   type CallGetRecordingParams,
-  type CallGetToolLogsParams,
   type CallGetTranscriptParams,
 } from './calls/index';
-export { Chat, type ChatSendMessageResponse, type ChatSendMessageParams } from './chat/index';
-export {
-  EmailTemplates,
-  type Template,
-  type EmailTemplateListResponse,
-  type EmailTemplateCreateParams,
-  type EmailTemplateRetrieveParams,
-  type EmailTemplateUpdateParams,
-  type EmailTemplateListParams,
-  type EmailTemplateDeleteParams,
-} from './email-templates';
-export {
-  Faqs,
-  type Faq,
-  type FaqListResponse,
-  type FaqCreateParams,
-  type FaqRetrieveParams,
-  type FaqUpdateParams,
-  type FaqListParams,
-  type FaqDeleteParams,
-} from './faqs';
-export {
-  Integrations,
-  type ConnectedIntegrationResponse,
-  type IntegrationListResponse,
-  type IntegrationListConnectedResponse,
-  type IntegrationRetrieveParams,
-  type IntegrationConnectParams,
-  type IntegrationDisconnectParams,
-  type IntegrationRetrieveBySlugParams,
-  type IntegrationToggleParams,
-  type IntegrationUpdateSettingsParams,
-} from './integrations';
+export { Chat } from './chat/index';
+export { EmailTemplates, type Template } from './email-templates';
+export { Faqs, type Faq } from './faqs';
+export { Integrations, type ConnectedIntegrationResponse } from './integrations';
 export {
   Lists,
   type DeleteListResponse,
@@ -123,40 +48,26 @@ export {
   type ListUpdateParams,
   type ListListParams,
   type ListDeleteParams,
-  type ListDeleteGdprParams,
 } from './lists/index';
 export {
   Org,
   type OrgCreateWorkflowRunResponse,
-  type OrgListAuditLogsResponse,
   type OrgListVoicesResponse,
-  type OrgSendChatMessageResponse,
   type OrgCreateWorkflowRunParams,
-  type OrgListAuditLogsParams,
   type OrgListVoicesParams,
-  type OrgSendChatMessageParams,
 } from './org';
-export {
-  OutcomeDefinitions,
-  type OutcomeDefinition,
-  type OutcomeDefinitionListResponse,
-  type OutcomeDefinitionCreateParams,
-  type OutcomeDefinitionUpdateParams,
-  type OutcomeDefinitionDeleteParams,
-} from './outcome-definitions';
+export { OutcomeDefinitions, type OutcomeDefinition } from './outcome-definitions';
 export {
   PhoneNumbers,
   type PaginationMetaTelephony,
   type PhoneNumberResponse,
   type PhoneNumberListResponse,
   type PhoneNumberDeleteResponse,
-  type PhoneNumberCreateBulkResponse,
   type PhoneNumberCreateParams,
   type PhoneNumberRetrieveParams,
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
   type PhoneNumberDeleteParams,
-  type PhoneNumberCreateBulkParams,
 } from './phone-numbers';
 export {
   Prospects,
@@ -170,76 +81,23 @@ export {
   type ProspectUpdateParams,
   type ProspectListParams,
   type ProspectDeleteParams,
-  type ProspectHardDeleteParams,
   type ProspectListCallsParams,
 } from './prospects/index';
-export {
-  QualityRules,
-  type QualityRuleResponse,
-  type QualityRuleListResponse,
-  type QualityRuleCreateParams,
-  type QualityRuleRetrieveParams,
-  type QualityRuleUpdateParams,
-  type QualityRuleListParams,
-  type QualityRuleDeleteParams,
-} from './quality-rules';
-export {
-  Runs,
-  type PaginatedRunsExtendedResponse,
-  type ProspectInfo,
-  type RunResponse,
-  type RunRetrieveParams,
-  type RunListParams,
-} from './runs';
-export {
-  SipTrunks,
-  type SipTrunkResponse,
-  type SipTrunkRetrieveResponse,
-  type SipTrunkDeleteResponse,
-  type SipTrunkRetrieveSipTrunksResponse,
-  type SipTrunkSipTrunksResponse,
-  type SipTrunkRetrieveParams,
-  type SipTrunkUpdateParams,
-  type SipTrunkDeleteParams,
-  type SipTrunkRetrieveSipTrunksParams,
-  type SipTrunkSipTrunksParams,
-} from './sip-trunks';
-export {
-  Tags,
-  type TagResponseTag,
-  type TagListResponse,
-  type TagDeleteResponse,
-  type TagCreateParams,
-  type TagRetrieveParams,
-  type TagUpdateParams,
-  type TagListParams,
-  type TagDeleteParams,
-} from './tags/index';
-export {
-  Tools,
-  type ParameterProp,
-  type ToolResponse,
-  type ToolListResponse,
-  type ToolCreateParams,
-  type ToolRetrieveParams,
-  type ToolUpdateParams,
-  type ToolListParams,
-  type ToolDeleteParams,
-} from './tools';
+export { QualityRules, type QualityRuleResponse } from './quality-rules';
+export { Runs, type PaginatedRunsExtendedResponse, type ProspectInfo, type RunResponse } from './runs';
+export { SipTrunks, type SipTrunkResponse } from './sip-trunks';
+export { Tags, type TagResponseTag } from './tags/index';
+export { Tools, type ParameterProp, type ToolResponse } from './tools';
 export {
   Workflows,
   type PaginationMetaWorkflows,
   type WorkflowResponse,
   type WorkflowListResponse,
   type WorkflowDeleteResponse,
-  type WorkflowRetrieveCallsResponse,
   type WorkflowCreateParams,
   type WorkflowRetrieveParams,
-  type WorkflowUpdateParams,
   type WorkflowListParams,
   type WorkflowDeleteParams,
-  type WorkflowDuplicateParams,
-  type WorkflowRetrieveCallsParams,
   type WorkflowRetrieveRunsParams,
   type WorkflowUpdateDefinitionParams,
 } from './workflows/index';
