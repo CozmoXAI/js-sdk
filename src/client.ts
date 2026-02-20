@@ -17,9 +17,7 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Billing, BillingHandleWebhookParams, BillingHandleWebhookResponse } from './resources/billing';
 import { Me, MeListOrganizationsResponse } from './resources/me';
-import { Resource0 } from './resources/resource-0';
 import {
   Org,
   OrgCreateWorkflowRunParams,
@@ -728,27 +726,17 @@ export class Cozmoai {
 
   static toFile = Uploads.toFile;
 
-  billing: API.Billing = new API.Billing(this);
   me: API.Me = new API.Me(this);
   org: API.Org = new API.Org(this);
   organizations: API.Organizations = new API.Organizations(this);
-  resource0: API.Resource0 = new API.Resource0(this);
 }
 
-Cozmoai.Billing = Billing;
 Cozmoai.Me = Me;
 Cozmoai.Org = Org;
 Cozmoai.Organizations = Organizations;
-Cozmoai.Resource0 = Resource0;
 
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
-
-  export {
-    Billing as Billing,
-    type BillingHandleWebhookResponse as BillingHandleWebhookResponse,
-    type BillingHandleWebhookParams as BillingHandleWebhookParams,
-  };
 
   export { Me as Me, type MeListOrganizationsResponse as MeListOrganizationsResponse };
 
@@ -765,6 +753,4 @@ export declare namespace Cozmoai {
   };
 
   export { Organizations as Organizations };
-
-  export { Resource0 as Resource0 };
 }

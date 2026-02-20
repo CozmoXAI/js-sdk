@@ -1,13 +1,3 @@
-# Billing
-
-Types:
-
-- <code><a href="./src/resources/billing.ts">BillingHandleWebhookResponse</a></code>
-
-Methods:
-
-- <code title="post /billing/webhook">client.billing.<a href="./src/resources/billing.ts">handleWebhook</a>({ ...params }) -> BillingHandleWebhookResponse</code>
-
 # Me
 
 Types:
@@ -626,5 +616,3 @@ Methods:
 - <code title="get /organizations/{org_id}/members">client.organizations.members.<a href="./src/resources/organizations/members.ts">list</a>(orgID) -> MemberListResponse</code>
 - <code title="delete /organizations/{org_id}/members/{user_id}">client.organizations.members.<a href="./src/resources/organizations/members.ts">remove</a>(userID, { ...params }) -> ResponseError</code>
 - <code title="patch /organizations/{org_id}/members/{user_id}">client.organizations.members.<a href="./src/resources/organizations/members.ts">updateRole</a>(userID, { ...params }) -> ResponseError</code>
-
-# Resource0
