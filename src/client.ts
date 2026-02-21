@@ -24,7 +24,6 @@ import {
   AgentResponse,
   AgentUpdateParams,
   Agents,
-  AgentsThinkingSound,
   BackgroundSoundConfig,
   ExtraConfig,
   GoodbyeConfig,
@@ -249,7 +248,7 @@ export class Cozmoai {
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ Authorization: this.apiKey }]);
+    return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
   /**
@@ -788,7 +787,6 @@ export declare namespace Cozmoai {
   export {
     Agents as Agents,
     type AgentResponse as AgentResponse,
-    type AgentsThinkingSound as AgentsThinkingSound,
     type BackgroundSoundConfig as BackgroundSoundConfig,
     type ExtraConfig as ExtraConfig,
     type GoodbyeConfig as GoodbyeConfig,
