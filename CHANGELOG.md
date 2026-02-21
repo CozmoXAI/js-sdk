@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 (2026-02-21)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/CozmoXAI/js-sdk/compare/v0.3.0...v0.3.1)
+
+### Chores
+
+* update SDK settings ([52d4e23](https://github.com/CozmoXAI/js-sdk/commit/52d4e239e4aebd6f809d6e35a2b0fb29b2d468cf))
+* update SDK settings ([40d6ae5](https://github.com/CozmoXAI/js-sdk/commit/40d6ae51def933e42541a7e7ff22e07956cfc5d5))
+
 ## 0.3.0 (2026-02-21)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/CozmoXAI/js-sdk/compare/v0.2.0...v0.3.0)
