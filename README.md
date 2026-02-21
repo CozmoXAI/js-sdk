@@ -27,7 +27,7 @@ const client = new Cozmoai({
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const agents = await client.agents.list('org_id');
+const agents = await client.agents.list();
 
 console.log(agents.data);
 ```
@@ -45,7 +45,7 @@ const client = new Cozmoai({
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const agents: Cozmoai.AgentListResponse = await client.agents.list('org_id');
+const agents: Cozmoai.AgentListResponse = await client.agents.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -58,7 +58,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const agents = await client.agents.list('org_id').catch(async (err) => {
+const agents = await client.agents.list().catch(async (err) => {
   if (err instanceof Cozmoai.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -99,7 +99,7 @@ const client = new Cozmoai({
 });
 
 // Or, configure per-request:
-await client.agents.list('org_id', {
+await client.agents.list({
   maxRetries: 5,
 });
 ```
@@ -117,7 +117,7 @@ const client = new Cozmoai({
 });
 
 // Override per-request:
-await client.agents.list('org_id', {
+await client.agents.list({
   timeout: 5 * 1000,
 });
 ```
@@ -140,11 +140,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Cozmoai();
 
-const response = await client.agents.list('org_id').asResponse();
+const response = await client.agents.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: agents, response: raw } = await client.agents.list('org_id').withResponse();
+const { data: agents, response: raw } = await client.agents.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(agents.data);
 ```

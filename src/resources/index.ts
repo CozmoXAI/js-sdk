@@ -3,6 +3,7 @@
 export {
   Agents,
   type AgentResponse,
+  type AgentsThinkingSound,
   type BackgroundSoundConfig,
   type ExtraConfig,
   type GoodbyeConfig,
@@ -15,23 +16,14 @@ export {
   type AgentListResponse,
   type AgentDeleteResponse,
   type AgentCreateParams,
-  type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
-  type AgentDeleteParams,
 } from './agents';
-export {
-  Calls,
-  type CallRetrieveResponse,
-  type CallListResponse,
-  type CallRetrieveParams,
-  type CallListParams,
-} from './calls';
+export { Calls, type CallRetrieveResponse, type CallListResponse, type CallListParams } from './calls';
 export { Voices, type VoiceListResponse, type VoiceListParams } from './voices';
 export {
   Workflows,
   type WorkflowRetrieveResponse,
   type WorkflowListResponse,
-  type WorkflowRetrieveParams,
   type WorkflowListParams,
 } from './workflows';

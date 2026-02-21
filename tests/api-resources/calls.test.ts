@@ -10,8 +10,8 @@ const client = new Cozmoai({
 
 describe('resource calls', () => {
   // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.calls.retrieve('call_id', { org_id: 'org_id' });
+  test.skip('retrieve', async () => {
+    const responsePromise = client.calls.retrieve('call_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,13 +22,8 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.calls.retrieve('call_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.calls.list('org_id');
+    const responsePromise = client.calls.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,7 +38,6 @@ describe('resource calls', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.calls.list(
-        'org_id',
         {
           agent_id: 'agent_id',
           direction: 'direction',

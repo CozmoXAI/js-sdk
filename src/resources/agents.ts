@@ -9,51 +9,39 @@ export class Agents extends APIResource {
   /**
    * Create a new AI agent in the organization
    */
-  create(orgID: string, body: AgentCreateParams, options?: RequestOptions): APIPromise<AgentResponse> {
-    return this._client.post(path`/org/${orgID}/agents`, { body, ...options });
+  create(body: AgentCreateParams, options?: RequestOptions): APIPromise<AgentResponse> {
+    return this._client.post('/agents', { body, ...options });
   }
 
   /**
    * Get agent details by ID
    */
-  retrieve(
-    agentID: string,
-    params: AgentRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/agents/${agentID}`, options);
+  retrieve(agentID: string, options?: RequestOptions): APIPromise<AgentResponse> {
+    return this._client.get(path`/agents/${agentID}`, options);
   }
 
   /**
    * Update agent details (partial update)
    */
-  update(agentID: string, params: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentResponse> {
-    const { org_id, ...body } = params;
-    return this._client.patch(path`/org/${org_id}/agents/${agentID}`, { body, ...options });
+  update(agentID: string, body: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentResponse> {
+    return this._client.patch(path`/agents/${agentID}`, { body, ...options });
   }
 
   /**
    * Get a paginated list of agents for the organization
    */
   list(
-    orgID: string,
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<AgentListResponse> {
-    return this._client.get(path`/org/${orgID}/agents`, { query, ...options });
+    return this._client.get('/agents', { query, ...options });
   }
 
   /**
    * Delete an agent by ID
    */
-  delete(
-    agentID: string,
-    params: AgentDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentDeleteResponse> {
-    const { org_id } = params;
-    return this._client.delete(path`/org/${org_id}/agents/${agentID}`, options);
+  delete(agentID: string, options?: RequestOptions): APIPromise<AgentDeleteResponse> {
+    return this._client.delete(path`/agents/${agentID}`, options);
   }
 }
 
@@ -133,6 +121,14 @@ export namespace AgentResponse {
   }
 }
 
+export interface AgentsThinkingSound {
+  sound: string;
+
+  probability?: number;
+
+  volume?: number;
+}
+
 export interface BackgroundSoundConfig {
   file: string;
 
@@ -140,19 +136,9 @@ export interface BackgroundSoundConfig {
 
   initial_volume?: number;
 
-  thinking_sound?: Array<BackgroundSoundConfig.ThinkingSound>;
+  thinking_sound?: Array<AgentsThinkingSound>;
 
   volume?: number;
-}
-
-export namespace BackgroundSoundConfig {
-  export interface ThinkingSound {
-    sound: string;
-
-    probability?: number;
-
-    volume?: number;
-  }
 }
 
 export interface ExtraConfig {
@@ -430,92 +416,35 @@ export namespace AgentCreateParams {
   }
 }
 
-export interface AgentRetrieveParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export interface AgentUpdateParams {
-  /**
-   * Path param: Organization ID
-   */
-  org_id: string;
-
-  /**
-   * Body param
-   */
   allowed_sip_trunks?: Array<string>;
 
-  /**
-   * Body param
-   */
   background_sound?: BackgroundSoundConfig;
 
-  /**
-   * Body param
-   */
   extra_config?: ExtraConfig;
 
-  /**
-   * Body param
-   */
   goodbye_config?: GoodbyeConfig;
 
-  /**
-   * Body param
-   */
   greeting_config?: GreetingConfig;
 
-  /**
-   * Body param
-   */
   llm_config?: LlmConfig;
 
-  /**
-   * Body param
-   */
   name?: string;
 
-  /**
-   * Body param
-   */
   plugins?: Array<unknown>;
 
-  /**
-   * Body param
-   */
   precall_webhook?: AgentUpdateParams.PrecallWebhook;
 
-  /**
-   * Body param
-   */
   prompt_template?: string;
 
-  /**
-   * Body param
-   */
   room_duration_config?: RoomDurationConfig;
 
-  /**
-   * Body param
-   */
   transcriber_config?: TranscriberConfig;
 
-  /**
-   * Body param
-   */
   type?: 'voice' | 'chat' | 'video';
 
-  /**
-   * Body param
-   */
   vad_config?: VadConfig;
 
-  /**
-   * Body param
-   */
   voice_config?: VoiceConfig;
 }
 
@@ -555,16 +484,10 @@ export interface AgentListParams {
   type?: string;
 }
 
-export interface AgentDeleteParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export declare namespace Agents {
   export {
     type AgentResponse as AgentResponse,
+    type AgentsThinkingSound as AgentsThinkingSound,
     type BackgroundSoundConfig as BackgroundSoundConfig,
     type ExtraConfig as ExtraConfig,
     type GoodbyeConfig as GoodbyeConfig,
@@ -577,9 +500,7 @@ export declare namespace Agents {
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentDeleteParams as AgentDeleteParams,
   };
 }

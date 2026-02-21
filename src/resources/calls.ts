@@ -9,24 +9,18 @@ export class Calls extends APIResource {
   /**
    * Returns full details for a specific call including prospect and agent info
    */
-  retrieve(
-    callID: string,
-    params: CallRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/calls/${callID}`, options);
+  retrieve(callID: string, options?: RequestOptions): APIPromise<CallRetrieveResponse> {
+    return this._client.get(path`/calls/${callID}`, options);
   }
 
   /**
    * Returns a paginated list of calls for the organization with optional filters
    */
   list(
-    orgID: string,
     query: CallListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<CallListResponse> {
-    return this._client.get(path`/org/${orgID}/calls`, { query, ...options });
+    return this._client.get('/calls', { query, ...options });
   }
 }
 
@@ -211,13 +205,6 @@ export namespace CallListResponse {
   }
 }
 
-export interface CallRetrieveParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export interface CallListParams {
   /**
    * Filter by agent ID
@@ -290,7 +277,6 @@ export declare namespace Calls {
   export {
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
-    type CallRetrieveParams as CallRetrieveParams,
     type CallListParams as CallListParams,
   };
 }

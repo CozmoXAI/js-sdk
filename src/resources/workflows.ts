@@ -9,24 +9,18 @@ export class Workflows extends APIResource {
   /**
    * Get a single workflow by ID with its latest definition
    */
-  retrieve(
-    workflowID: string,
-    params: WorkflowRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowRetrieveResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/workflows/${workflowID}`, options);
+  retrieve(workflowID: string, options?: RequestOptions): APIPromise<WorkflowRetrieveResponse> {
+    return this._client.get(path`/workflows/${workflowID}`, options);
   }
 
   /**
    * Get a paginated list of workflows with filtering
    */
   list(
-    orgID: string,
     query: WorkflowListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<WorkflowListResponse> {
-    return this._client.get(path`/org/${orgID}/workflows`, { query, ...options });
+    return this._client.get('/workflows', { query, ...options });
   }
 }
 
@@ -90,13 +84,6 @@ export namespace WorkflowListResponse {
   }
 }
 
-export interface WorkflowRetrieveParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 export interface WorkflowListParams {
   /**
    * Filter by active status
@@ -128,7 +115,6 @@ export declare namespace Workflows {
   export {
     type WorkflowRetrieveResponse as WorkflowRetrieveResponse,
     type WorkflowListResponse as WorkflowListResponse,
-    type WorkflowRetrieveParams as WorkflowRetrieveParams,
     type WorkflowListParams as WorkflowListParams,
   };
 }
