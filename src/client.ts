@@ -11,27 +11,13 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Billing, BillingHandleWebhookParams, BillingHandleWebhookResponse } from './resources/billing';
-import { Me, MeListOrganizationsResponse } from './resources/me';
 import { Resource0 } from './resources/resource-0';
-import {
-  Org,
-  OrgCreateWorkflowRunParams,
-  OrgCreateWorkflowRunResponse,
-  OrgListAuditLogsParams,
-  OrgListAuditLogsResponse,
-  OrgListVoicesParams,
-  OrgListVoicesResponse,
-  OrgSendChatMessageParams,
-  OrgSendChatMessageResponse,
-} from './resources/org/org';
-import { Organizations } from './resources/organizations/organizations';
+import { Org, OrgListVoicesParams, OrgListVoicesResponse } from './resources/org/org';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -142,7 +128,7 @@ export class Cozmoai {
    * API Client for interfacing with the Cozmoai API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['COZMOAI_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? https://nova-api.uat.czmx.in/api] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? /api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -164,7 +150,7 @@ export class Cozmoai {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://nova-api.uat.czmx.in/api`,
+      baseURL: baseURL || `/api`,
     };
 
     this.baseURL = options.baseURL!;
@@ -210,7 +196,7 @@ export class Cozmoai {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== 'https://nova-api.uat.czmx.in/api';
+    return this.baseURL !== '/api';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -222,11 +208,27 @@ export class Cozmoai {
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
+    return buildHeaders([{ Authorization: this.apiKey }]);
   }
 
+  /**
+   * Basic re-implementation of `qs.stringify` for primitive types.
+   */
   protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return Object.entries(query)
+      .filter(([_, value]) => typeof value !== 'undefined')
+      .map(([key, value]) => {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+        }
+        if (value === null) {
+          return `${encodeURIComponent(key)}=`;
+        }
+        throw new Errors.CozmoaiError(
+          `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
+        );
+      })
+      .join('&');
   }
 
   private getUserAgent(): string {
@@ -728,43 +730,21 @@ export class Cozmoai {
 
   static toFile = Uploads.toFile;
 
-  billing: API.Billing = new API.Billing(this);
-  me: API.Me = new API.Me(this);
   org: API.Org = new API.Org(this);
-  organizations: API.Organizations = new API.Organizations(this);
   resource0: API.Resource0 = new API.Resource0(this);
 }
 
-Cozmoai.Billing = Billing;
-Cozmoai.Me = Me;
 Cozmoai.Org = Org;
-Cozmoai.Organizations = Organizations;
 Cozmoai.Resource0 = Resource0;
 
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    Billing as Billing,
-    type BillingHandleWebhookResponse as BillingHandleWebhookResponse,
-    type BillingHandleWebhookParams as BillingHandleWebhookParams,
-  };
-
-  export { Me as Me, type MeListOrganizationsResponse as MeListOrganizationsResponse };
-
-  export {
     Org as Org,
-    type OrgCreateWorkflowRunResponse as OrgCreateWorkflowRunResponse,
-    type OrgListAuditLogsResponse as OrgListAuditLogsResponse,
     type OrgListVoicesResponse as OrgListVoicesResponse,
-    type OrgSendChatMessageResponse as OrgSendChatMessageResponse,
-    type OrgCreateWorkflowRunParams as OrgCreateWorkflowRunParams,
-    type OrgListAuditLogsParams as OrgListAuditLogsParams,
     type OrgListVoicesParams as OrgListVoicesParams,
-    type OrgSendChatMessageParams as OrgSendChatMessageParams,
   };
-
-  export { Organizations as Organizations };
 
   export { Resource0 as Resource0 };
 }

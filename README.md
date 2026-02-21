@@ -29,11 +29,9 @@ const client = new Cozmoai({
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.billing.handleWebhook({
-  'svix-id': 'svix-id',
-  'svix-signature': 'svix-signature',
-  'svix-timestamp': 'svix-timestamp',
-});
+const agents = await client.org.agents.list('REPLACE_ME');
+
+console.log(agents.data);
 ```
 
 ### Request & Response types
@@ -48,59 +46,10 @@ const client = new Cozmoai({
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Cozmoai.BillingHandleWebhookParams = {
-  'svix-id': 'svix-id',
-  'svix-signature': 'svix-signature',
-  'svix-timestamp': 'svix-timestamp',
-};
-const response: Cozmoai.BillingHandleWebhookResponse = await client.billing.handleWebhook(params);
+const agents: Cozmoai.Org.AgentListResponse = await client.org.agents.list('REPLACE_ME');
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed in many different forms:
-
-- `File` (or an object with the same structure)
-- a `fetch` `Response` (or an object with the same structure)
-- an `fs.ReadStream`
-- the return value of our `toFile` helper
-
-```ts
-import fs from 'fs';
-import Cozmoai, { toFile } from 'cozmoai';
-
-const client = new Cozmoai();
-
-// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
-await client.org.prospects.bulk.import('org_id', {
-  file: fs.createReadStream('/path/to/file'),
-  list_name: 'list_name',
-});
-
-// Or if you have the web `File` API you can pass a `File` instance:
-await client.org.prospects.bulk.import('org_id', {
-  file: new File(['my bytes'], 'file'),
-  list_name: 'list_name',
-});
-
-// You can also pass a `fetch` `Response`:
-await client.org.prospects.bulk.import('org_id', {
-  file: await fetch('https://somesite/file'),
-  list_name: 'list_name',
-});
-
-// Finally, if none of the above are convenient, you can use our `toFile` helper:
-await client.org.prospects.bulk.import('org_id', {
-  file: await toFile(Buffer.from('my bytes'), 'file'),
-  list_name: 'list_name',
-});
-await client.org.prospects.bulk.import('org_id', {
-  file: await toFile(new Uint8Array([0, 1, 2]), 'file'),
-  list_name: 'list_name',
-});
-```
 
 ## Handling errors
 
@@ -110,21 +59,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.billing
-  .handleWebhook({
-    'svix-id': 'svix-id',
-    'svix-signature': 'svix-signature',
-    'svix-timestamp': 'svix-timestamp',
-  })
-  .catch(async (err) => {
-    if (err instanceof Cozmoai.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+const agents = await client.org.agents.list('REPLACE_ME').catch(async (err) => {
+  if (err instanceof Cozmoai.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
@@ -156,11 +99,7 @@ const client = new Cozmoai({
 });
 
 // Or, configure per-request:
-await client.billing.handleWebhook({
-  'svix-id': 'svix-id',
-  'svix-signature': 'svix-signature',
-  'svix-timestamp': 'svix-timestamp',
-}, {
+await client.org.agents.list('REPLACE_ME', {
   maxRetries: 5,
 });
 ```
@@ -177,11 +116,7 @@ const client = new Cozmoai({
 });
 
 // Override per-request:
-await client.billing.handleWebhook({
-  'svix-id': 'svix-id',
-  'svix-signature': 'svix-signature',
-  'svix-timestamp': 'svix-timestamp',
-}, {
+await client.org.agents.list('REPLACE_ME', {
   timeout: 5 * 1000,
 });
 ```
@@ -204,25 +139,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Cozmoai();
 
-const response = await client.billing
-  .handleWebhook({
-    'svix-id': 'svix-id',
-    'svix-signature': 'svix-signature',
-    'svix-timestamp': 'svix-timestamp',
-  })
-  .asResponse();
+const response = await client.org.agents.list('REPLACE_ME').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.billing
-  .handleWebhook({
-    'svix-id': 'svix-id',
-    'svix-signature': 'svix-signature',
-    'svix-timestamp': 'svix-timestamp',
-  })
-  .withResponse();
+const { data: agents, response: raw } = await client.org.agents.list('REPLACE_ME').withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response);
+console.log(agents.data);
 ```
 
 ### Logging
@@ -302,7 +225,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.billing.handleWebhook({
+client.org.agents.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
