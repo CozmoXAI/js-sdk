@@ -4,13 +4,14 @@ import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai({
   apiKey: 'My API Key',
+  orgID: 'My Org ID',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource workflows', () => {
+describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.org.workflows.retrieve('workflow_id', { org_id: 'org_id' });
+    const responsePromise = client.calls.retrieve('call_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,12 +23,12 @@ describe('resource workflows', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.org.workflows.retrieve('workflow_id', { org_id: 'org_id' });
+    const response = await client.calls.retrieve('call_id', { org_id: 'org_id' });
   });
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.org.workflows.list('org_id');
+    const responsePromise = client.calls.list('org_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,14 +42,22 @@ describe('resource workflows', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.org.workflows.list(
+      client.calls.list(
         'org_id',
         {
-          is_active: true,
+          agent_id: 'agent_id',
+          direction: 'direction',
+          end_date: 'end_date',
+          min_duration: 0,
           page: 0,
-          search: 'search',
-          size: 0,
-          trigger_type: 'trigger_type',
+          phone: 'phone',
+          prospect_external_id: 'prospect_external_id',
+          prospect_id: 'prospect_id',
+          prospect_name: 'prospect_name',
+          size: 100,
+          start_date: 'start_date',
+          status: 'status',
+          workflow_id: 'workflow_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
