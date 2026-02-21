@@ -4,13 +4,14 @@ import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai({
   apiKey: 'My API Key',
+  orgID: 'My Org ID',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.org.agents.create('org_id', {
+    const responsePromise = client.agents.create('org_id', {
       name: 'name',
       prompt_template: 'prompt_template',
       type: 'voice',
@@ -26,7 +27,7 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.org.agents.create('org_id', {
+    const response = await client.agents.create('org_id', {
       name: 'name',
       prompt_template: 'prompt_template',
       type: 'voice',
@@ -144,7 +145,7 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.org.agents.retrieve('agent_id', { org_id: 'org_id' });
+    const responsePromise = client.agents.retrieve('agent_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -156,12 +157,12 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.org.agents.retrieve('agent_id', { org_id: 'org_id' });
+    const response = await client.agents.retrieve('agent_id', { org_id: 'org_id' });
   });
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.org.agents.update('agent_id', { org_id: 'org_id' });
+    const responsePromise = client.agents.update('agent_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -173,7 +174,7 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.org.agents.update('agent_id', {
+    const response = await client.agents.update('agent_id', {
       org_id: 'org_id',
       allowed_sip_trunks: ['string'],
       background_sound: {
@@ -292,7 +293,7 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.org.agents.list('org_id');
+    const responsePromise = client.agents.list('org_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -306,7 +307,7 @@ describe('resource agents', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.org.agents.list(
+      client.agents.list(
         'org_id',
         {
           page: 0,
@@ -321,7 +322,7 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.org.agents.delete('agent_id', { org_id: 'org_id' });
+    const responsePromise = client.agents.delete('agent_id', { org_id: 'org_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -333,6 +334,6 @@ describe('resource agents', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.org.agents.delete('agent_id', { org_id: 'org_id' });
+    const response = await client.agents.delete('agent_id', { org_id: 'org_id' });
   });
 });

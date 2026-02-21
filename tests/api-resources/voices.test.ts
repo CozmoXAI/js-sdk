@@ -4,13 +4,14 @@ import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai({
   apiKey: 'My API Key',
+  orgID: 'My Org ID',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource org', () => {
+describe('resource voices', () => {
   // Mock server tests are disabled
-  test.skip('listVoices: only required params', async () => {
-    const responsePromise = client.org.listVoices('org_id', { provider: 'elevenlabs' });
+  test.skip('list: only required params', async () => {
+    const responsePromise = client.voices.list('org_id', { provider: 'elevenlabs' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +22,8 @@ describe('resource org', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listVoices: required and optional params', async () => {
-    const response = await client.org.listVoices('org_id', {
+  test.skip('list: required and optional params', async () => {
+    const response = await client.voices.list('org_id', {
       provider: 'elevenlabs',
       model: 'model',
       next_page: 'next_page',
