@@ -1,12 +1,12 @@
 {
   "name": "cozmoai",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The official TypeScript library for the Cozmoai API",
   "author": "Cozmoai <>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:stainless-sdks/cozmoai-typescript",
+  "repository": "github:CozmoXAI/js-sdk",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.27.0",
   "files": [
