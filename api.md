@@ -56,5 +56,3 @@ Methods:
 
 - <code title="get /org/{org_id}/workflows/{workflow_id}">client.org.workflows.<a href="./src/resources/org/workflows.ts">retrieve</a>(workflowID, { ...params }) -> WorkflowRetrieveResponse</code>
 - <code title="get /org/{org_id}/workflows">client.org.workflows.<a href="./src/resources/org/workflows.ts">list</a>(orgID, { ...params }) -> WorkflowListResponse</code>
-
-# Resource0
