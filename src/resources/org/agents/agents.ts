@@ -113,6 +113,14 @@ export interface Agent {
   voice_config?: Array<number>;
 }
 
+export interface AgentsThinkingSound {
+  sound: string;
+
+  probability?: number;
+
+  volume?: number;
+}
+
 export interface BackgroundSoundConfig {
   file: string;
 
@@ -120,19 +128,9 @@ export interface BackgroundSoundConfig {
 
   initial_volume?: number;
 
-  thinking_sound?: Array<BackgroundSoundConfig.ThinkingSound>;
+  thinking_sound?: Array<AgentsThinkingSound>;
 
   volume?: number;
-}
-
-export namespace BackgroundSoundConfig {
-  export interface ThinkingSound {
-    sound: string;
-
-    probability?: number;
-
-    volume?: number;
-  }
 }
 
 export interface GoodbyeConfig {
@@ -746,6 +744,7 @@ Agents.Evals = Evals;
 export declare namespace Agents {
   export {
     type Agent as Agent,
+    type AgentsThinkingSound as AgentsThinkingSound,
     type BackgroundSoundConfig as BackgroundSoundConfig,
     type GoodbyeConfig as GoodbyeConfig,
     type PaginationMetaEvalsPostcall as PaginationMetaEvalsPostcall,

@@ -15,6 +15,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/org/agents/agents.ts">Agent</a></code>
+- <code><a href="./src/resources/org/agents/agents.ts">AgentsThinkingSound</a></code>
 - <code><a href="./src/resources/org/agents/agents.ts">BackgroundSoundConfig</a></code>
 - <code><a href="./src/resources/org/agents/agents.ts">GoodbyeConfig</a></code>
 - <code><a href="./src/resources/org/agents/agents.ts">PaginationMetaEvalsPostcall</a></code>

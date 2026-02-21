@@ -3,6 +3,7 @@
 export {
   Agents,
   type Agent,
+  type AgentsThinkingSound,
   type BackgroundSoundConfig,
   type GoodbyeConfig,
   type PaginationMetaEvalsPostcall,

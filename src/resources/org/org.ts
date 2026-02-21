@@ -34,6 +34,7 @@ import {
   AgentRetrieveParams,
   AgentUpdateParams,
   Agents,
+  AgentsThinkingSound,
   BackgroundSoundConfig,
   GoodbyeConfig,
   PaginationMetaEvalsPostcall,
@@ -229,6 +230,7 @@ export declare namespace Org {
   export {
     Agents as Agents,
     type Agent as Agent,
+    type AgentsThinkingSound as AgentsThinkingSound,
     type BackgroundSoundConfig as BackgroundSoundConfig,
     type GoodbyeConfig as GoodbyeConfig,
     type PaginationMetaEvalsPostcall as PaginationMetaEvalsPostcall,

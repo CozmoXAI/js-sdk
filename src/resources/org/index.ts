@@ -4,6 +4,7 @@ export { APIKeys, type Response } from './api-keys';
 export {
   Agents,
   type Agent,
+  type AgentsThinkingSound,
   type BackgroundSoundConfig,
   type GoodbyeConfig,
   type PaginationMetaEvalsPostcall,
