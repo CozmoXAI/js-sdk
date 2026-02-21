@@ -3,7 +3,6 @@
 Types:
 
 - <code><a href="./src/resources/agents.ts">AgentResponse</a></code>
-- <code><a href="./src/resources/agents.ts">AgentsThinkingSound</a></code>
 - <code><a href="./src/resources/agents.ts">BackgroundSoundConfig</a></code>
 - <code><a href="./src/resources/agents.ts">ExtraConfig</a></code>
 - <code><a href="./src/resources/agents.ts">GoodbyeConfig</a></code>

@@ -3,7 +3,6 @@
 export {
   Agents,
   type AgentResponse,
-  type AgentsThinkingSound,
   type BackgroundSoundConfig,
   type ExtraConfig,
   type GoodbyeConfig,
