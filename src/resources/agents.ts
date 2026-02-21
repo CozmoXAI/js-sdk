@@ -121,6 +121,14 @@ export namespace AgentResponse {
   }
 }
 
+export interface AgentsThinkingSound {
+  sound: string;
+
+  probability?: number;
+
+  volume?: number;
+}
+
 export interface BackgroundSoundConfig {
   file: string;
 
@@ -128,19 +136,9 @@ export interface BackgroundSoundConfig {
 
   initial_volume?: number;
 
-  thinking_sound?: Array<BackgroundSoundConfig.ThinkingSound>;
+  thinking_sound?: Array<AgentsThinkingSound>;
 
   volume?: number;
-}
-
-export namespace BackgroundSoundConfig {
-  export interface ThinkingSound {
-    sound: string;
-
-    probability?: number;
-
-    volume?: number;
-  }
 }
 
 export interface ExtraConfig {
@@ -489,6 +487,7 @@ export interface AgentListParams {
 export declare namespace Agents {
   export {
     type AgentResponse as AgentResponse,
+    type AgentsThinkingSound as AgentsThinkingSound,
     type BackgroundSoundConfig as BackgroundSoundConfig,
     type ExtraConfig as ExtraConfig,
     type GoodbyeConfig as GoodbyeConfig,
