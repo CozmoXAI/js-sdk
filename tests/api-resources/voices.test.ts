@@ -11,7 +11,7 @@ const client = new Cozmoai({
 describe('resource voices', () => {
   // Mock server tests are disabled
   test.skip('list: only required params', async () => {
-    const responsePromise = client.voices.list('org_id', { provider: 'elevenlabs' });
+    const responsePromise = client.voices.list({ provider: 'elevenlabs' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource voices', () => {
 
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
-    const response = await client.voices.list('org_id', {
+    const response = await client.voices.list({
       provider: 'elevenlabs',
       model: 'model',
       next_page: 'next_page',
