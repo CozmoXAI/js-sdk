@@ -32,30 +32,6 @@ export class Calls extends APIResource {
     const { org_id } = params;
     return this._client.get(path`/org/${org_id}/calls/${callID}`, options);
   }
-
-  /**
-   * Returns the recording URL for a call
-   */
-  getRecording(
-    callID: string,
-    params: CallGetRecordingParams,
-    options?: RequestOptions,
-  ): APIPromise<CallGetRecordingResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/calls/${callID}/recording`, options);
-  }
-
-  /**
-   * Returns the transcript and conversation messages for a call
-   */
-  getTranscript(
-    callID: string,
-    params: CallGetTranscriptParams,
-    options?: RequestOptions,
-  ): APIPromise<CallGetTranscriptResponse> {
-    const { org_id } = params;
-    return this._client.get(path`/org/${org_id}/calls/${callID}/transcript`, options);
-  }
 }
 
 export interface CallEvaluation {
@@ -112,6 +88,10 @@ export namespace CallListResponse {
 
     agent_name?: string;
 
+    call_type?: string;
+
+    callback_for?: string;
+
     direction?: string;
 
     duration_seconds?: number;
@@ -146,6 +126,10 @@ export interface CallGetDetailsResponse {
   id?: string;
 
   agent_name?: string;
+
+  call_type?: string;
+
+  callback_for?: string;
 
   cost_usd?: string;
 
@@ -200,6 +184,11 @@ export interface CallGetDetailsResponse {
 
   stt_duration_seconds?: number;
 
+  /**
+   * Call summary (AI-generated summary of the call)
+   */
+  summary?: string;
+
   telephony_code?: number;
 
   to_number?: string;
@@ -222,40 +211,6 @@ export interface CallGetDetailsResponse {
   workflow_run_id?: string;
 
   workflow_version_id?: string;
-}
-
-export interface CallGetRecordingResponse {
-  id?: string;
-
-  duration_seconds?: number;
-
-  recording_url?: string;
-}
-
-export interface CallGetTranscriptResponse {
-  id?: string;
-
-  cost_usd?: string;
-
-  duration_seconds?: number;
-
-  ended_at?: string;
-
-  messages?: Array<number>;
-
-  started_at?: string;
-
-  status?: string;
-
-  stt_duration_seconds?: number;
-
-  tokens_input?: number;
-
-  tokens_output?: number;
-
-  transcript_text?: string;
-
-  tts_characters?: number;
 }
 
 export interface CallListParams {
@@ -300,6 +255,11 @@ export interface CallListParams {
   prospect_id?: string;
 
   /**
+   * Filter by prospect name (first or last)
+   */
+  prospect_name?: string;
+
+  /**
    * Page size
    */
   size?: number;
@@ -328,20 +288,6 @@ export interface CallGetDetailsParams {
   org_id: string;
 }
 
-export interface CallGetRecordingParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
-export interface CallGetTranscriptParams {
-  /**
-   * Organization ID
-   */
-  org_id: string;
-}
-
 Calls.Export = Export;
 
 export declare namespace Calls {
@@ -351,12 +297,8 @@ export declare namespace Calls {
     type PaginationMetaCalls as PaginationMetaCalls,
     type CallListResponse as CallListResponse,
     type CallGetDetailsResponse as CallGetDetailsResponse,
-    type CallGetRecordingResponse as CallGetRecordingResponse,
-    type CallGetTranscriptResponse as CallGetTranscriptResponse,
     type CallListParams as CallListParams,
     type CallGetDetailsParams as CallGetDetailsParams,
-    type CallGetRecordingParams as CallGetRecordingParams,
-    type CallGetTranscriptParams as CallGetTranscriptParams,
   };
 
   export { Export as Export };

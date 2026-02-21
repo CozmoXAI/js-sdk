@@ -27,7 +27,9 @@ import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai();
 
-const response = await client.me.listOrganizations();
+const response = await client.org.listVoices('org_id', { provider: 'elevenlabs' });
+
+console.log(response.meta);
 ```
 
 ### Request & Response types
@@ -40,54 +42,11 @@ import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai();
 
-const response: Cozmoai.MeListOrganizationsResponse = await client.me.listOrganizations();
+const params: Cozmoai.OrgListVoicesParams = { provider: 'elevenlabs' };
+const response: Cozmoai.OrgListVoicesResponse = await client.org.listVoices('org_id', params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed in many different forms:
-
-- `File` (or an object with the same structure)
-- a `fetch` `Response` (or an object with the same structure)
-- an `fs.ReadStream`
-- the return value of our `toFile` helper
-
-```ts
-import fs from 'fs';
-import Cozmoai, { toFile } from 'cozmoai';
-
-const client = new Cozmoai();
-
-// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
-await client.org.prospects.bulk.import('org_id', {
-  file: fs.createReadStream('/path/to/file'),
-  list_name: 'list_name',
-});
-
-// Or if you have the web `File` API you can pass a `File` instance:
-await client.org.prospects.bulk.import('org_id', {
-  file: new File(['my bytes'], 'file'),
-  list_name: 'list_name',
-});
-
-// You can also pass a `fetch` `Response`:
-await client.org.prospects.bulk.import('org_id', {
-  file: await fetch('https://somesite/file'),
-  list_name: 'list_name',
-});
-
-// Finally, if none of the above are convenient, you can use our `toFile` helper:
-await client.org.prospects.bulk.import('org_id', {
-  file: await toFile(Buffer.from('my bytes'), 'file'),
-  list_name: 'list_name',
-});
-await client.org.prospects.bulk.import('org_id', {
-  file: await toFile(new Uint8Array([0, 1, 2]), 'file'),
-  list_name: 'list_name',
-});
-```
 
 ## Handling errors
 
@@ -97,15 +56,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.me.listOrganizations().catch(async (err) => {
-  if (err instanceof Cozmoai.APIError) {
-    console.log(err.status); // 400
-    console.log(err.name); // BadRequestError
-    console.log(err.headers); // {server: 'nginx', ...}
-  } else {
-    throw err;
-  }
-});
+const response = await client.org
+  .listVoices('org_id', { provider: 'elevenlabs' })
+  .catch(async (err) => {
+    if (err instanceof Cozmoai.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -133,12 +94,11 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new Cozmoai({
-  apiKey: 'My API Key',
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.me.listOrganizations({
+await client.org.listVoices('org_id', { provider: 'elevenlabs' }, {
   maxRetries: 5,
 });
 ```
@@ -151,12 +111,11 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new Cozmoai({
-  apiKey: 'My API Key',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.me.listOrganizations({
+await client.org.listVoices('org_id', { provider: 'elevenlabs' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -179,13 +138,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Cozmoai();
 
-const response = await client.me.listOrganizations().asResponse();
+const response = await client.org.listVoices('org_id', { provider: 'elevenlabs' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.me.listOrganizations().withResponse();
+const { data: response, response: raw } = await client.org
+  .listVoices('org_id', { provider: 'elevenlabs' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response);
+console.log(response.meta);
 ```
 
 ### Logging
@@ -265,7 +226,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.me.listOrganizations({
+client.org.listVoices({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',

@@ -14,18 +14,7 @@ import { ConnectedIntegrationResponse, Integrations } from './integrations';
 import * as OutcomeDefinitionsAPI from './outcome-definitions';
 import { OutcomeDefinition, OutcomeDefinitions } from './outcome-definitions';
 import * as PhoneNumbersAPI from './phone-numbers';
-import {
-  PaginationMetaTelephony,
-  PhoneNumberCreateParams,
-  PhoneNumberDeleteParams,
-  PhoneNumberDeleteResponse,
-  PhoneNumberListParams,
-  PhoneNumberListResponse,
-  PhoneNumberResponse,
-  PhoneNumberRetrieveParams,
-  PhoneNumberUpdateParams,
-  PhoneNumbers,
-} from './phone-numbers';
+import { PaginationMetaTelephony, PhoneNumberResponse, PhoneNumbers } from './phone-numbers';
 import * as QualityRulesAPI from './quality-rules';
 import { QualityRuleResponse, QualityRules } from './quality-rules';
 import * as RunsAPI from './runs';
@@ -60,10 +49,6 @@ import {
   CallEvaluation,
   CallGetDetailsParams,
   CallGetDetailsResponse,
-  CallGetRecordingParams,
-  CallGetRecordingResponse,
-  CallGetTranscriptParams,
-  CallGetTranscriptResponse,
   CallListParams,
   CallListResponse,
   CallToolLog,
@@ -73,46 +58,18 @@ import {
 import * as ChatAPI from './chat/chat';
 import { Chat } from './chat/chat';
 import * as ListsAPI from './lists/lists';
-import {
-  DeleteListResponse,
-  ListCreateParams,
-  ListDeleteParams,
-  ListListParams,
-  ListListResponse,
-  ListResponse,
-  ListRetrieveParams,
-  ListUpdateParams,
-  Lists,
-} from './lists/lists';
+import { DeleteListResponse, ListResponse, Lists } from './lists/lists';
 import * as ProspectsAPI from './prospects/prospects';
-import {
-  ProspectCreateParams,
-  ProspectDeleteParams,
-  ProspectListCallsParams,
-  ProspectListCallsResponse,
-  ProspectListParams,
-  ProspectListResponse,
-  ProspectResponse,
-  ProspectRetrieveParams,
-  ProspectUpdateParams,
-  Prospects,
-  ResponseError,
-  TagResponseProspect,
-} from './prospects/prospects';
+import { ProspectResponse, Prospects, ResponseError, TagResponseProspect } from './prospects/prospects';
 import * as TagsAPI from './tags/tags';
 import { TagResponseTag, Tags } from './tags/tags';
 import * as WorkflowsAPI from './workflows/workflows';
 import {
   PaginationMetaWorkflows,
-  WorkflowCreateParams,
-  WorkflowDeleteParams,
-  WorkflowDeleteResponse,
   WorkflowListParams,
   WorkflowListResponse,
   WorkflowResponse,
   WorkflowRetrieveParams,
-  WorkflowRetrieveRunsParams,
-  WorkflowUpdateDefinitionParams,
   Workflows,
 } from './workflows/workflows';
 import { APIPromise } from '../../core/api-promise';
@@ -144,18 +101,6 @@ export class Org extends APIResource {
   workflows: WorkflowsAPI.Workflows = new WorkflowsAPI.Workflows(this._client);
 
   /**
-   * Create a new workflow run with prospect creation in a single operation (API
-   * endpoint)
-   */
-  createWorkflowRun(
-    orgID: string,
-    body: OrgCreateWorkflowRunParams,
-    options?: RequestOptions,
-  ): APIPromise<OrgCreateWorkflowRunResponse> {
-    return this._client.post(path`/org/${orgID}/workflow-runs`, { body, ...options });
-  }
-
-  /**
    * Get a paginated list of available voices from the specified provider
    */
   listVoices(
@@ -163,14 +108,8 @@ export class Org extends APIResource {
     query: OrgListVoicesParams,
     options?: RequestOptions,
   ): APIPromise<OrgListVoicesResponse> {
-    return this._client.get(path`/org/${orgID}/voices`, { query, ...options });
+    return this._client.get(path`/org/${orgID}/voices`, { query, ...options, __security: {} });
   }
-}
-
-export interface OrgCreateWorkflowRunResponse {
-  external_id?: string;
-
-  workflow_run_id?: string;
 }
 
 export interface OrgListVoicesResponse {
@@ -218,12 +157,14 @@ export namespace OrgListVoicesResponse {
 
     language?: string;
 
+    model?: string;
+
     name?: string;
 
     preview_url?: string;
 
     /**
-     * "elevenlabs", "cartesia", "openai"
+     * "elevenlabs", "cartesia", "openai", "cambai", "sarvam", "inworld", "minimax"
      */
     provider?: string;
 
@@ -231,39 +172,16 @@ export namespace OrgListVoicesResponse {
   }
 }
 
-export interface OrgCreateWorkflowRunParams {
-  prospect: OrgCreateWorkflowRunParams.Prospect;
-
-  workflow_id: string;
-
-  scheduled_at?: string;
-}
-
-export namespace OrgCreateWorkflowRunParams {
-  export interface Prospect {
-    phone: string;
-
-    country?: string;
-
-    custom_data?: { [key: string]: unknown };
-
-    email?: string;
-
-    external_id?: string;
-
-    first_name?: string;
-
-    last_name?: string;
-
-    timezone?: string;
-  }
-}
-
 export interface OrgListVoicesParams {
   /**
    * Voice provider
    */
-  provider: 'elevenlabs' | 'cartesia' | 'openai';
+  provider: 'elevenlabs' | 'cartesia' | 'openai' | 'cambai' | 'sarvam' | 'inworld' | 'minimax';
+
+  /**
+   * Filter by model (e.g., bulbul:v2, bulbul:v3-beta) - only for sarvam provider
+   */
+  model?: string;
 
   /**
    * Cursor for next page - used for native pagination (cartesia, elevenlabs)
@@ -304,9 +222,7 @@ Org.Workflows = Workflows;
 
 export declare namespace Org {
   export {
-    type OrgCreateWorkflowRunResponse as OrgCreateWorkflowRunResponse,
     type OrgListVoicesResponse as OrgListVoicesResponse,
-    type OrgCreateWorkflowRunParams as OrgCreateWorkflowRunParams,
     type OrgListVoicesParams as OrgListVoicesParams,
   };
 
@@ -346,12 +262,8 @@ export declare namespace Org {
     type PaginationMetaCalls as PaginationMetaCalls,
     type CallListResponse as CallListResponse,
     type CallGetDetailsResponse as CallGetDetailsResponse,
-    type CallGetRecordingResponse as CallGetRecordingResponse,
-    type CallGetTranscriptResponse as CallGetTranscriptResponse,
     type CallListParams as CallListParams,
     type CallGetDetailsParams as CallGetDetailsParams,
-    type CallGetRecordingParams as CallGetRecordingParams,
-    type CallGetTranscriptParams as CallGetTranscriptParams,
   };
 
   export { Chat as Chat };
@@ -362,17 +274,7 @@ export declare namespace Org {
 
   export { Integrations as Integrations, type ConnectedIntegrationResponse as ConnectedIntegrationResponse };
 
-  export {
-    Lists as Lists,
-    type DeleteListResponse as DeleteListResponse,
-    type ListResponse as ListResponse,
-    type ListListResponse as ListListResponse,
-    type ListCreateParams as ListCreateParams,
-    type ListRetrieveParams as ListRetrieveParams,
-    type ListUpdateParams as ListUpdateParams,
-    type ListListParams as ListListParams,
-    type ListDeleteParams as ListDeleteParams,
-  };
+  export { Lists as Lists, type DeleteListResponse as DeleteListResponse, type ListResponse as ListResponse };
 
   export { OutcomeDefinitions as OutcomeDefinitions, type OutcomeDefinition as OutcomeDefinition };
 
@@ -380,13 +282,6 @@ export declare namespace Org {
     PhoneNumbers as PhoneNumbers,
     type PaginationMetaTelephony as PaginationMetaTelephony,
     type PhoneNumberResponse as PhoneNumberResponse,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
-    type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
-    type PhoneNumberCreateParams as PhoneNumberCreateParams,
-    type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
-    type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
-    type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberDeleteParams as PhoneNumberDeleteParams,
   };
 
   export {
@@ -394,14 +289,6 @@ export declare namespace Org {
     type ProspectResponse as ProspectResponse,
     type ResponseError as ResponseError,
     type TagResponseProspect as TagResponseProspect,
-    type ProspectListResponse as ProspectListResponse,
-    type ProspectListCallsResponse as ProspectListCallsResponse,
-    type ProspectCreateParams as ProspectCreateParams,
-    type ProspectRetrieveParams as ProspectRetrieveParams,
-    type ProspectUpdateParams as ProspectUpdateParams,
-    type ProspectListParams as ProspectListParams,
-    type ProspectDeleteParams as ProspectDeleteParams,
-    type ProspectListCallsParams as ProspectListCallsParams,
   };
 
   export { QualityRules as QualityRules, type QualityRuleResponse as QualityRuleResponse };
@@ -424,12 +311,7 @@ export declare namespace Org {
     type PaginationMetaWorkflows as PaginationMetaWorkflows,
     type WorkflowResponse as WorkflowResponse,
     type WorkflowListResponse as WorkflowListResponse,
-    type WorkflowDeleteResponse as WorkflowDeleteResponse,
-    type WorkflowCreateParams as WorkflowCreateParams,
     type WorkflowRetrieveParams as WorkflowRetrieveParams,
     type WorkflowListParams as WorkflowListParams,
-    type WorkflowDeleteParams as WorkflowDeleteParams,
-    type WorkflowRetrieveRunsParams as WorkflowRetrieveRunsParams,
-    type WorkflowUpdateDefinitionParams as WorkflowUpdateDefinitionParams,
   };
 }

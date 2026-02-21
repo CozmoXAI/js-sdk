@@ -35,6 +35,7 @@ describe('resource calls', () => {
           phone: 'phone',
           prospect_external_id: 'prospect_external_id',
           prospect_id: 'prospect_id',
+          prospect_name: 'prospect_name',
           size: 100,
           start_date: 'start_date',
           status: 'status',
@@ -60,39 +61,5 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('getDetails: required and optional params', async () => {
     const response = await client.org.calls.getDetails('call_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('getRecording: only required params', async () => {
-    const responsePromise = client.org.calls.getRecording('call_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('getRecording: required and optional params', async () => {
-    const response = await client.org.calls.getRecording('call_id', { org_id: 'org_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('getTranscript: only required params', async () => {
-    const responsePromise = client.org.calls.getTranscript('call_id', { org_id: 'org_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('getTranscript: required and optional params', async () => {
-    const response = await client.org.calls.getTranscript('call_id', { org_id: 'org_id' });
   });
 });

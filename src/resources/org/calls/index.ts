@@ -7,11 +7,7 @@ export {
   type PaginationMetaCalls,
   type CallListResponse,
   type CallGetDetailsResponse,
-  type CallGetRecordingResponse,
-  type CallGetTranscriptResponse,
   type CallListParams,
   type CallGetDetailsParams,
-  type CallGetRecordingParams,
-  type CallGetTranscriptParams,
 } from './calls';
 export { Export } from './export';

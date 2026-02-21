@@ -16,14 +16,8 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Me, MeListOrganizationsResponse } from './resources/me';
-import {
-  Org,
-  OrgCreateWorkflowRunParams,
-  OrgCreateWorkflowRunResponse,
-  OrgListVoicesParams,
-  OrgListVoicesResponse,
-} from './resources/org/org';
+import { Me } from './resources/me';
+import { Org, OrgListVoicesParams, OrgListVoicesResponse } from './resources/org/org';
 import { Organizations } from './resources/organizations/organizations';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -212,6 +206,17 @@ export class Cozmoai {
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
     return;
+  }
+
+  protected async authHeaders(
+    opts: FinalRequestOptions,
+    schemes: { bearerAuth?: boolean },
+  ): Promise<NullableHeaders | undefined> {
+    return buildHeaders([schemes.bearerAuth ? await this.bearerAuth(opts) : null]);
+  }
+
+  protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([{ Authorization: this.apiKey }]);
   }
 
   /**
@@ -652,6 +657,7 @@ export class Cozmoai {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
+      await this.authHeaders(options, options.__security ?? { bearerAuth: true }),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
@@ -744,13 +750,11 @@ Cozmoai.Organizations = Organizations;
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { Me as Me, type MeListOrganizationsResponse as MeListOrganizationsResponse };
+  export { Me as Me };
 
   export {
     Org as Org,
-    type OrgCreateWorkflowRunResponse as OrgCreateWorkflowRunResponse,
     type OrgListVoicesResponse as OrgListVoicesResponse,
-    type OrgCreateWorkflowRunParams as OrgCreateWorkflowRunParams,
     type OrgListVoicesParams as OrgListVoicesParams,
   };
 

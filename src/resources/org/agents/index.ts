@@ -18,17 +18,6 @@ export {
 } from './agents';
 export { Evals, type Eval } from './evals';
 export { SipTrunks } from './sip-trunks';
-export {
-  Tools,
-  type AgentTool,
-  type ToolUpdateResponse,
-  type ToolListResponse,
-  type ToolAddResponse,
-  type ToolRemoveResponse,
-  type ToolUpdateParams,
-  type ToolListParams,
-  type ToolAddParams,
-  type ToolRemoveParams,
-} from './tools';
+export { Tools, type AgentTool } from './tools';
 export { UnitTestRuns, type PaginationMetaUnitTests } from './unit-test-runs';
 export { UnitTests, type UnitTest } from './unit-tests';
