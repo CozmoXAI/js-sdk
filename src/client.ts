@@ -18,12 +18,10 @@ import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
   AgentCreateParams,
-  AgentDeleteParams,
   AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
   AgentResponse,
-  AgentRetrieveParams,
   AgentUpdateParams,
   Agents,
   BackgroundSoundConfig,
@@ -36,18 +34,11 @@ import {
   VadConfig,
   VoiceConfig,
 } from './resources/agents';
-import {
-  CallListParams,
-  CallListResponse,
-  CallRetrieveParams,
-  CallRetrieveResponse,
-  Calls,
-} from './resources/calls';
+import { CallListParams, CallListResponse, CallRetrieveResponse, Calls } from './resources/calls';
 import { VoiceListParams, VoiceListResponse, Voices } from './resources/voices';
 import {
   WorkflowListParams,
   WorkflowListResponse,
-  WorkflowRetrieveParams,
   WorkflowRetrieveResponse,
   Workflows,
 } from './resources/workflows';
@@ -808,17 +799,14 @@ export declare namespace Cozmoai {
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentDeleteParams as AgentDeleteParams,
   };
 
   export {
     Calls as Calls,
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
-    type CallRetrieveParams as CallRetrieveParams,
     type CallListParams as CallListParams,
   };
 
@@ -826,7 +814,6 @@ export declare namespace Cozmoai {
     Workflows as Workflows,
     type WorkflowRetrieveResponse as WorkflowRetrieveResponse,
     type WorkflowListResponse as WorkflowListResponse,
-    type WorkflowRetrieveParams as WorkflowRetrieveParams,
     type WorkflowListParams as WorkflowListParams,
   };
 

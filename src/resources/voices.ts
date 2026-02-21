@@ -3,14 +3,13 @@
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
-import { path } from '../internal/utils/path';
 
 export class Voices extends APIResource {
   /**
    * Get a paginated list of available voices from the specified provider
    */
-  list(orgID: string, query: VoiceListParams, options?: RequestOptions): APIPromise<VoiceListResponse> {
-    return this._client.get(path`/org/${orgID}/voices`, { query, ...options });
+  list(query: VoiceListParams, options?: RequestOptions): APIPromise<VoiceListResponse> {
+    return this._client.get('/voices', { query, ...options });
   }
 }
 
