@@ -16,7 +16,41 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Org, OrgListVoicesParams, OrgListVoicesResponse } from './resources/org/org';
+import {
+  AgentCreateParams,
+  AgentDeleteParams,
+  AgentDeleteResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentResponse,
+  AgentRetrieveParams,
+  AgentUpdateParams,
+  Agents,
+  BackgroundSoundConfig,
+  ExtraConfig,
+  GoodbyeConfig,
+  GreetingConfig,
+  LlmConfig,
+  RoomDurationConfig,
+  TranscriberConfig,
+  VadConfig,
+  VoiceConfig,
+} from './resources/agents';
+import {
+  CallListParams,
+  CallListResponse,
+  CallRetrieveParams,
+  CallRetrieveResponse,
+  Calls,
+} from './resources/calls';
+import { VoiceListParams, VoiceListResponse, Voices } from './resources/voices';
+import {
+  WorkflowListParams,
+  WorkflowListResponse,
+  WorkflowRetrieveParams,
+  WorkflowRetrieveResponse,
+  Workflows,
+} from './resources/workflows';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -35,6 +69,11 @@ export interface ClientOptions {
    * Defaults to process.env['COZMOAI_API_KEY'].
    */
   apiKey?: string | undefined;
+
+  /**
+   * Defaults to process.env['COZMO_ORG_ID'].
+   */
+  orgID?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -110,6 +149,7 @@ export interface ClientOptions {
  */
 export class Cozmoai {
   apiKey: string;
+  orgID: string;
 
   baseURL: string;
   maxRetries: number;
@@ -127,6 +167,7 @@ export class Cozmoai {
    * API Client for interfacing with the Cozmoai API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['COZMOAI_API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.orgID=process.env['COZMO_ORG_ID'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? https://nova.prod.czmx.in/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -138,6 +179,7 @@ export class Cozmoai {
   constructor({
     baseURL = readEnv('COZMOAI_BASE_URL'),
     apiKey = readEnv('COZMOAI_API_KEY'),
+    orgID = readEnv('COZMO_ORG_ID'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -145,9 +187,15 @@ export class Cozmoai {
         "The COZMOAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the Cozmoai client with an apiKey option, like new Cozmoai({ apiKey: 'My API Key' }).",
       );
     }
+    if (orgID === undefined) {
+      throw new Errors.CozmoaiError(
+        "The COZMO_ORG_ID environment variable is missing or empty; either provide it, or instantiate the Cozmoai client with an orgID option, like new Cozmoai({ orgID: 'My Org ID' }).",
+      );
+    }
 
     const options: ClientOptions = {
       apiKey,
+      orgID,
       ...opts,
       baseURL: baseURL || `https://nova.prod.czmx.in/api`,
     };
@@ -170,6 +218,7 @@ export class Cozmoai {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.orgID = orgID;
   }
 
   /**
@@ -186,6 +235,7 @@ export class Cozmoai {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      orgID: this.orgID,
       ...options,
     });
     return client;
@@ -729,17 +779,60 @@ export class Cozmoai {
 
   static toFile = Uploads.toFile;
 
-  org: API.Org = new API.Org(this);
+  agents: API.Agents = new API.Agents(this);
+  calls: API.Calls = new API.Calls(this);
+  workflows: API.Workflows = new API.Workflows(this);
+  voices: API.Voices = new API.Voices(this);
 }
 
-Cozmoai.Org = Org;
+Cozmoai.Agents = Agents;
+Cozmoai.Calls = Calls;
+Cozmoai.Workflows = Workflows;
+Cozmoai.Voices = Voices;
 
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    Org as Org,
-    type OrgListVoicesResponse as OrgListVoicesResponse,
-    type OrgListVoicesParams as OrgListVoicesParams,
+    Agents as Agents,
+    type AgentResponse as AgentResponse,
+    type BackgroundSoundConfig as BackgroundSoundConfig,
+    type ExtraConfig as ExtraConfig,
+    type GoodbyeConfig as GoodbyeConfig,
+    type GreetingConfig as GreetingConfig,
+    type LlmConfig as LlmConfig,
+    type RoomDurationConfig as RoomDurationConfig,
+    type TranscriberConfig as TranscriberConfig,
+    type VadConfig as VadConfig,
+    type VoiceConfig as VoiceConfig,
+    type AgentListResponse as AgentListResponse,
+    type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentCreateParams as AgentCreateParams,
+    type AgentRetrieveParams as AgentRetrieveParams,
+    type AgentUpdateParams as AgentUpdateParams,
+    type AgentListParams as AgentListParams,
+    type AgentDeleteParams as AgentDeleteParams,
+  };
+
+  export {
+    Calls as Calls,
+    type CallRetrieveResponse as CallRetrieveResponse,
+    type CallListResponse as CallListResponse,
+    type CallRetrieveParams as CallRetrieveParams,
+    type CallListParams as CallListParams,
+  };
+
+  export {
+    Workflows as Workflows,
+    type WorkflowRetrieveResponse as WorkflowRetrieveResponse,
+    type WorkflowListResponse as WorkflowListResponse,
+    type WorkflowRetrieveParams as WorkflowRetrieveParams,
+    type WorkflowListParams as WorkflowListParams,
+  };
+
+  export {
+    Voices as Voices,
+    type VoiceListResponse as VoiceListResponse,
+    type VoiceListParams as VoiceListParams,
   };
 }

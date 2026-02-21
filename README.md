@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Cozmoai REST API from server-side TypeScript or JavaScript.
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.cozmox.ai](https://docs.cozmox.ai/). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -23,10 +23,11 @@ The full API of this library can be found in [api.md](api.md).
 import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai({
+  orgID: 'My Org ID',
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const agents = await client.org.agents.list('REPLACE_ME');
+const agents = await client.agents.list('org_id');
 
 console.log(agents.data);
 ```
@@ -40,10 +41,11 @@ This library includes TypeScript definitions for all request params and response
 import Cozmoai from 'cozmoai';
 
 const client = new Cozmoai({
+  orgID: 'My Org ID',
   apiKey: process.env['COZMOAI_API_KEY'], // This is the default and can be omitted
 });
 
-const agents: Cozmoai.Org.AgentListResponse = await client.org.agents.list('REPLACE_ME');
+const agents: Cozmoai.AgentListResponse = await client.agents.list('org_id');
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -56,7 +58,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const agents = await client.org.agents.list('REPLACE_ME').catch(async (err) => {
+const agents = await client.agents.list('org_id').catch(async (err) => {
   if (err instanceof Cozmoai.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -92,11 +94,12 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new Cozmoai({
+  orgID: 'My Org ID',
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.org.agents.list('REPLACE_ME', {
+await client.agents.list('org_id', {
   maxRetries: 5,
 });
 ```
@@ -109,11 +112,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new Cozmoai({
+  orgID: 'My Org ID',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.org.agents.list('REPLACE_ME', {
+await client.agents.list('org_id', {
   timeout: 5 * 1000,
 });
 ```
@@ -136,11 +140,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Cozmoai();
 
-const response = await client.org.agents.list('REPLACE_ME').asResponse();
+const response = await client.agents.list('org_id').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: agents, response: raw } = await client.org.agents.list('REPLACE_ME').withResponse();
+const { data: agents, response: raw } = await client.agents.list('org_id').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(agents.data);
 ```
@@ -222,7 +226,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.org.agents.list({
+client.agents.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
