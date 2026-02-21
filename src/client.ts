@@ -16,7 +16,6 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Resource0 } from './resources/resource-0';
 import { Org, OrgListVoicesParams, OrgListVoicesResponse } from './resources/org/org';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -128,7 +127,7 @@ export class Cozmoai {
    * API Client for interfacing with the Cozmoai API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['COZMOAI_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? /api] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? https://nova.prod.czmx.in/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -150,7 +149,7 @@ export class Cozmoai {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `/api`,
+      baseURL: baseURL || `https://nova.prod.czmx.in/api`,
     };
 
     this.baseURL = options.baseURL!;
@@ -196,7 +195,7 @@ export class Cozmoai {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== '/api';
+    return this.baseURL !== 'https://nova.prod.czmx.in/api';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -731,11 +730,9 @@ export class Cozmoai {
   static toFile = Uploads.toFile;
 
   org: API.Org = new API.Org(this);
-  resource0: API.Resource0 = new API.Resource0(this);
 }
 
 Cozmoai.Org = Org;
-Cozmoai.Resource0 = Resource0;
 
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
@@ -745,6 +742,4 @@ export declare namespace Cozmoai {
     type OrgListVoicesResponse as OrgListVoicesResponse,
     type OrgListVoicesParams as OrgListVoicesParams,
   };
-
-  export { Resource0 as Resource0 };
 }
