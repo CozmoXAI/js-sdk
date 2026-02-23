@@ -354,13 +354,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['COZMOAI_BASE_URL'] = ''; // empty
       const client = new Cozmoai({ apiKey: 'My API Key', orgID: 'My Org ID' });
-      expect(client.baseURL).toEqual('https://v2-nova-api.prod.czmx.in/api/org/${org_id}');
+      expect(client.baseURL).toEqual('https://v2-nova-api.prod.czmx.in/api/org/${orgID}');
     });
 
     test('blank env variable', () => {
       process.env['COZMOAI_BASE_URL'] = '  '; // blank
       const client = new Cozmoai({ apiKey: 'My API Key', orgID: 'My Org ID' });
-      expect(client.baseURL).toEqual('https://v2-nova-api.prod.czmx.in/api/org/${org_id}');
+      expect(client.baseURL).toEqual('https://v2-nova-api.prod.czmx.in/api/org/${orgID}');
     });
 
     test('in request options', () => {
