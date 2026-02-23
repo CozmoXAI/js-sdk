@@ -62,7 +62,7 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
-   * Defaults to process.env['COZMO_ORG_ID'].
+   * Defaults to process.env['COZMOAI_ORG_ID'].
    */
   orgID?: string | undefined;
 
@@ -158,7 +158,7 @@ export class Cozmoai {
    * API Client for interfacing with the Cozmoai API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['COZMOAI_API_KEY'] ?? undefined]
-   * @param {string | undefined} [opts.orgID=process.env['COZMO_ORG_ID'] ?? undefined]
+   * @param {string | undefined} [opts.orgID=process.env['COZMOAI_ORG_ID'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['COZMOAI_BASE_URL'] ?? https://v2-nova-api.prod.czmx.in/api/org/${orgID}] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -170,7 +170,7 @@ export class Cozmoai {
   constructor({
     baseURL = readEnv('COZMOAI_BASE_URL'),
     apiKey = readEnv('COZMOAI_API_KEY'),
-    orgID = readEnv('COZMO_ORG_ID'),
+    orgID = readEnv('COZMOAI_ORG_ID'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -180,7 +180,7 @@ export class Cozmoai {
     }
     if (orgID === undefined) {
       throw new Errors.CozmoaiError(
-        "The COZMO_ORG_ID environment variable is missing or empty; either provide it, or instantiate the Cozmoai client with an orgID option, like new Cozmoai({ orgID: 'My Org ID' }).",
+        "The COZMOAI_ORG_ID environment variable is missing or empty; either provide it, or instantiate the Cozmoai client with an orgID option, like new Cozmoai({ orgID: 'My Org ID' }).",
       );
     }
 
