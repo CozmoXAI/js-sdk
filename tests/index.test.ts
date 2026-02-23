@@ -485,7 +485,7 @@ describe('instantiate client', () => {
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['COZMOAI_API_KEY'] = 'My API Key';
-    process.env['COZMO_ORG_ID'] = 'My Org ID';
+    process.env['COZMOAI_ORG_ID'] = 'My Org ID';
     const client = new Cozmoai();
     expect(client.apiKey).toBe('My API Key');
     expect(client.orgID).toBe('My Org ID');
@@ -494,7 +494,7 @@ describe('instantiate client', () => {
   test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['COZMOAI_API_KEY'] = 'another My API Key';
-    process.env['COZMO_ORG_ID'] = 'another My Org ID';
+    process.env['COZMOAI_ORG_ID'] = 'another My Org ID';
     const client = new Cozmoai({ apiKey: 'My API Key', orgID: 'My Org ID' });
     expect(client.apiKey).toBe('My API Key');
     expect(client.orgID).toBe('My Org ID');
