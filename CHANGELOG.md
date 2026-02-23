@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 (2026-02-23)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/CozmoXAI/js-sdk/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** manual updates ([83dbff2](https://github.com/CozmoXAI/js-sdk/commit/83dbff23b27195f9d243af44ad3396e9022f66df))
+
 ## 0.6.0 (2026-02-21)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/CozmoXAI/js-sdk/compare/v0.5.0...v0.6.0)
