@@ -60,7 +60,7 @@ $ yarn link cozmoai
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global cozmoai
+$ pnpm link --global cozmoai
 ```
 
 ## Running tests
