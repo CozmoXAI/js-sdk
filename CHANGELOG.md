@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.12.1 (2026-03-10)
+
+Full Changelog: [v0.12.0...v0.12.1](https://github.com/CozmoXAI/js-sdk/compare/v0.12.0...v0.12.1)
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([959b8e0](https://github.com/CozmoXAI/js-sdk/commit/959b8e0bd14feedbc38c684071700d333d6d618b))
+* **docs/contributing:** correct pnpm link command ([2a5bd20](https://github.com/CozmoXAI/js-sdk/commit/2a5bd20ca80ee320a6cda837b91e95e0f92bde49))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([d9d9c24](https://github.com/CozmoXAI/js-sdk/commit/d9d9c24195c65b6791b44d7587387a46cfd6e074))
+* **internal:** codegen related update ([975db6e](https://github.com/CozmoXAI/js-sdk/commit/975db6ef37ca14d04f2cd05d1c921966881adeec))
+* **internal:** move stringifyQuery implementation to internal function ([8d22e89](https://github.com/CozmoXAI/js-sdk/commit/8d22e89f6cf3ff730d408b8afff56330f0bc3ae3))
+* **internal:** update dependencies to address dependabot vulnerabilities ([5af2d4f](https://github.com/CozmoXAI/js-sdk/commit/5af2d4f03687c1682272bd82c908685415e4f2df))
+* **internal:** upgrade pnpm version ([6376f4c](https://github.com/CozmoXAI/js-sdk/commit/6376f4cdd9214056ac063082c424027b1fcde46f))
+
 ## 0.12.0 (2026-02-23)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/CozmoXAI/js-sdk/compare/v0.11.0...v0.12.0)
