@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.12.2 (2026-03-25)
+
+Full Changelog: [v0.12.1...v0.12.2](https://github.com/CozmoXAI/js-sdk/compare/v0.12.1...v0.12.2)
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([3091175](https://github.com/CozmoXAI/js-sdk/commit/30911754df9cf0d1d5173468e3ba407c1d4c3f5b))
+* **internal:** tweak CI branches ([a6cdc96](https://github.com/CozmoXAI/js-sdk/commit/a6cdc96af949b98c75bf0bc0ad7e8ddd15e20db4))
+* **internal:** update gitignore ([b320342](https://github.com/CozmoXAI/js-sdk/commit/b320342f0ef60f29ba6ed1ee3f8d0751a8579735))
+
 ## 0.12.1 (2026-03-10)
 
 Full Changelog: [v0.12.0...v0.12.1](https://github.com/CozmoXAI/js-sdk/compare/v0.12.0...v0.12.1)
