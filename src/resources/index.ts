@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  AgentSessions,
+  type AgentSessionResponse,
+  type AgentSessionCreateParams,
+} from './agent_sessions';
+export {
   Agents,
   type AgentResponse,
   type BackgroundSoundConfig,

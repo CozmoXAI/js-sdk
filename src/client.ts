@@ -35,6 +35,11 @@ import {
   VadConfig,
   VoiceConfig,
 } from './resources/agents';
+import {
+  AgentSessions,
+  type AgentSessionCreateParams,
+  type AgentSessionResponse,
+} from './resources/agent_sessions';
 import { CallListParams, CallListResponse, CallRetrieveResponse, Calls } from './resources/calls';
 import { VoiceListParams, VoiceListResponse, Voices } from './resources/voices';
 import {
@@ -763,12 +768,14 @@ export class Cozmoai {
   calls: API.Calls = new API.Calls(this);
   workflows: API.Workflows = new API.Workflows(this);
   voices: API.Voices = new API.Voices(this);
+  agentSessions: API.AgentSessions = new API.AgentSessions(this);
 }
 
 Cozmoai.Agents = Agents;
 Cozmoai.Calls = Calls;
 Cozmoai.Workflows = Workflows;
 Cozmoai.Voices = Voices;
+Cozmoai.AgentSessions = AgentSessions;
 
 export declare namespace Cozmoai {
   export type RequestOptions = Opts.RequestOptions;
@@ -810,5 +817,11 @@ export declare namespace Cozmoai {
     Voices as Voices,
     type VoiceListResponse as VoiceListResponse,
     type VoiceListParams as VoiceListParams,
+  };
+
+  export {
+    AgentSessions as AgentSessions,
+    type AgentSessionResponse as AgentSessionResponse,
+    type AgentSessionCreateParams as AgentSessionCreateParams,
   };
 }
