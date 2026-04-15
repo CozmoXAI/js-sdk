@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.1 (2026-04-15)
+
+Full Changelog: [v0.13.0...v0.13.1](https://github.com/CozmoXAI/js-sdk/compare/v0.13.0...v0.13.1)
+
 ## 0.13.0 (2026-04-15)
 
 Full Changelog: [v0.12.1...v0.13.0](https://github.com/CozmoXAI/js-sdk/compare/v0.12.1...v0.13.0)
