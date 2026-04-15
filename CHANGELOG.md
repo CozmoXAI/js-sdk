@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.13.0 (2026-04-15)
+
+Full Changelog: [v0.12.1...v0.13.0](https://github.com/CozmoXAI/js-sdk/compare/v0.12.1...v0.13.0)
+
+### Features
+
+* create and retrieve sessions ([bea3505](https://github.com/CozmoXAI/js-sdk/commit/bea350529bcb404051786790cde0173850531858))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([8c9e5f4](https://github.com/CozmoXAI/js-sdk/commit/8c9e5f4cda4ce690e69586cb078346ae1480e1c9))
+* **internal:** codegen related update ([aefab15](https://github.com/CozmoXAI/js-sdk/commit/aefab1579493d5002b4f6394d7a17c77d71b3820))
+* **internal:** tweak CI branches ([3bd73f8](https://github.com/CozmoXAI/js-sdk/commit/3bd73f8cf0f8cc82fc28f38499a6a1000132324e))
+* **internal:** update gitignore ([bce6420](https://github.com/CozmoXAI/js-sdk/commit/bce6420da3e991545ce9c188e99ec80fd1f83696))
+
 ## 0.12.1 (2026-03-10)
 
 Full Changelog: [v0.12.0...v0.12.1](https://github.com/CozmoXAI/js-sdk/compare/v0.12.0...v0.12.1)
