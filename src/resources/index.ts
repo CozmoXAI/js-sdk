@@ -3,7 +3,7 @@
 export {
   AgentSessions,
   type AgentSessionResponse,
-  type AgentSessionCreateParams,
+  type AgentSessionStartParams,
 } from './agent_sessions';
 export {
   Agents,

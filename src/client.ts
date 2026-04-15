@@ -37,8 +37,8 @@ import {
 } from './resources/agents';
 import {
   AgentSessions,
-  type AgentSessionCreateParams,
   type AgentSessionResponse,
+  type AgentSessionStartParams,
 } from './resources/agent_sessions';
 import { CallListParams, CallListResponse, CallRetrieveResponse, Calls } from './resources/calls';
 import { VoiceListParams, VoiceListResponse, Voices } from './resources/voices';
@@ -822,6 +822,6 @@ export declare namespace Cozmoai {
   export {
     AgentSessions as AgentSessions,
     type AgentSessionResponse as AgentSessionResponse,
-    type AgentSessionCreateParams as AgentSessionCreateParams,
+    type AgentSessionStartParams as AgentSessionStartParams,
   };
 }

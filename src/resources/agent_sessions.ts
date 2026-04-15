@@ -4,21 +4,23 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
+import { uuid4 } from '../internal/utils/uuid';
 
 export class AgentSessions extends APIResource {
-  /**
-   * Start a new agent session, optionally associating it with an existing prospect
-   * or creating one inline.
-   */
-  create(body: AgentSessionCreateParams, options?: RequestOptions): APIPromise<AgentSessionResponse> {
-    return this._client.post('/agent-sessions', { body, ...options });
-  }
-
   /**
    * Returns full details for a specific agent session.
    */
   retrieve(sessionID: string, options?: RequestOptions): APIPromise<AgentSessionResponse> {
     return this._client.get(path`/agent-sessions/${sessionID}`, options);
+  }
+
+  /**
+   * Starts a new agent session — creates it, initializes it, and triggers the agent
+   * workflow in one call. Generates a UUID v4 session ID automatically.
+   */
+  start(body: AgentSessionStartParams, options?: RequestOptions): APIPromise<AgentSessionResponse> {
+    const sessionID = uuid4();
+    return this._client.post(path`/agent-sessions/${sessionID}/start`, { body, ...options });
   }
 }
 
@@ -77,23 +79,16 @@ export interface AgentSessionResponse {
   updated_at?: string;
 }
 
-export interface AgentSessionCreateParams {
-  /**
-   * UUID of an existing prospect to associate with the session.
-   * Mutually exclusive with new_prospect.
-   */
-  prospect_id?: string;
-
-  /**
-   * Inline prospect to create and associate with the session.
-   * Mutually exclusive with prospect_id.
-   */
-  new_prospect?: AgentSessionCreateParams.NewProspect;
-
+export interface AgentSessionStartParams {
   /**
    * UUID of the agent to run in this session.
    */
-  root_agent_id?: string;
+  agentId: string;
+
+  /**
+   * Instruction to pass to the agent.
+   */
+  instruction: string;
 
   /**
    * Title for the session.
@@ -101,46 +96,19 @@ export interface AgentSessionCreateParams {
   title?: string;
 
   /**
-   * Communication channel.
+   * Source identifier (e.g. 'command-center').
    */
-  channel?: string;
+  source?: string;
 
   /**
-   * Entry point description.
+   * UUID of an existing prospect to associate with the session.
    */
-  entrypoint?: string;
-
-  /**
-   * UUID of an associated workflow run.
-   */
-  workflow_run_id?: string;
-
-  /**
-   * UUID of an associated call.
-   */
-  call_id?: string;
-}
-
-export namespace AgentSessionCreateParams {
-  export interface NewProspect {
-    /**
-     * Phone number in E.164 format.
-     */
-    phone: string;
-
-    first_name?: string;
-
-    last_name?: string;
-
-    email?: string;
-
-    external_id?: string;
-  }
+  prospectId?: string | null;
 }
 
 export declare namespace AgentSessions {
   export {
     type AgentSessionResponse as AgentSessionResponse,
-    type AgentSessionCreateParams as AgentSessionCreateParams,
+    type AgentSessionStartParams as AgentSessionStartParams,
   };
 }
