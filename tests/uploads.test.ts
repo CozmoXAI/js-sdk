@@ -1,7 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from 'cozmoai/internal/to-file';
 import { toFile } from 'cozmoai/core/uploads';
-import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';
