@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.14.0 (2026-06-17)
+
+Full Changelog: [v0.13.1...v0.14.0](https://github.com/CozmoXAI/js-sdk/compare/v0.13.1...v0.14.0)
+
+### Features
+
+* support setting headers via env ([d5defa6](https://github.com/CozmoXAI/js-sdk/commit/d5defa640446d0007b06902bdbc2564aea9a8a11))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([93be519](https://github.com/CozmoXAI/js-sdk/commit/93be519f4701846e0c5ff2a9727e03b38e37fa1e))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([6306d45](https://github.com/CozmoXAI/js-sdk/commit/6306d458bed361f5d79a654761f712394fd4e1c9))
+
+
+### Chores
+
+* **format:** run eslint and prettier separately ([75f1733](https://github.com/CozmoXAI/js-sdk/commit/75f1733af4d712b517b0ae8d7056f6fe8f85fcc7))
+* **internal:** codegen related update ([75b8181](https://github.com/CozmoXAI/js-sdk/commit/75b81812d3149195d528e636f2fae738f2ef89e1))
+* **internal:** more robust bootstrap script ([b3d3715](https://github.com/CozmoXAI/js-sdk/commit/b3d3715b82d3f29a95e8589a8748cee4647adf9e))
+* redact api-key headers in debug logs ([910914f](https://github.com/CozmoXAI/js-sdk/commit/910914f32b233375c97e23a7c456897e97dd2900))
+* **tests:** remove redundant File import ([f00992a](https://github.com/CozmoXAI/js-sdk/commit/f00992a813b3c8cc7b7710059b927f411e25bed5))
+
 ## 0.13.1 (2026-04-15)
 
 Full Changelog: [v0.13.0...v0.13.1](https://github.com/CozmoXAI/js-sdk/compare/v0.13.0...v0.13.1)
